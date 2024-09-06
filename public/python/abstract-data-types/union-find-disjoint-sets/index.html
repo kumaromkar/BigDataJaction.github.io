@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52966&amp;path=livereload" data-no-instant defer></script>
-  <meta property="og:url" content="http://localhost:52966/python/abstract-data-types/union-find-disjoint-sets/">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/python/abstract-data-types/union-find-disjoint-sets/">
   <meta property="og:site_name" content="📈 BigData Junction">
   <meta property="og:title" content="Union Find (Disjoint Sets)">
   <meta property="og:description" content="Union Find (Disjoint Sets) # [!info] Content Note
@@ -10,6 +10,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="python">
+    <meta property="article:modified_time" content="2024-09-06T19:43:58+05:30">
 <title>Union Find (Disjoint Sets) | 📈 BigData Junction</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -41,7 +42,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 
 
 
-<link rel="shortcut icon" type="image/png"  href="http://localhost:52966//favicon.png" />
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
 
 
 
@@ -71,10 +72,10 @@ The Union Find data structure is a way of representing a bunch of nodes that are
   
 
 
-<link href="http://localhost:52966/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
 
 
-<link href="http://localhost:52966/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
 
   
 
@@ -98,33 +99,33 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 
 
 
-<script src="http://localhost:52966/quartz/js/darkmode.2f72a6d848d93d4809cd4f2305703fb1.min.js"></script>
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
 
 
 
-<script src="http://localhost:52966/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
 
 
 
 <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
 <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
 
-<script src="http://localhost:52966/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
 
 
 
@@ -133,15 +134,15 @@ The Union Find data structure is a way of representing a bunch of nodes that are
   const SEARCH_ENABLED =  false 
   const LATEX_ENABLED =  true 
   const PRODUCTION =  false 
-  const BASE_URL = "http://localhost:52966/"
+  const BASE_URL = "http://localhost:1313/"
   const fetchData = Promise.all([
-        fetch("http:\/\/localhost:52966\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
           .then(data => data.json())
           .then(data => ({
             index: data.index,
             links: data.links,
           })),
-        fetch("http:\/\/localhost:52966\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
           .then(data => data.json()),
       ])
       .then(([{index, links}, content]) => ({
@@ -167,7 +168,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 
     
     initPopover(
-      "http://localhost:52966",
+      "http://localhost:1313",
        true 
     )
     
@@ -183,7 +184,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 
       const drawGlobal = true;
       drawGraph(
-          "http://localhost:52966",
+          "http://localhost:1313",
           drawGlobal,
           [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
           drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
@@ -252,7 +253,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="http://localhost:52966/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
 
 
 
@@ -261,7 +262,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
     <label for="menu-control">
       <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
     </label>
-    <h1 id="page-title"><a href="http://localhost:52966/">📈 BigData Junction</a></h1>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
     <div class="spacer"></div>
     <div id="search-icon" class="quartz-search">
       <p>Search</p>
@@ -1059,17 +1060,17 @@ The Union Find data structure is a way of representing a bunch of nodes that are
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/../img/assets/image%20%2878%29.png" width="auto" alt="Calling union(1,2)."  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/../img/assets/image%20%2878%29.png" width="auto" alt="Calling union(1,2)."  /></p>
 <p>There are lots of ways to represent this behavior. One possible method is to keep an <strong>array of parent values</strong> corresponding to each actual value. In the example above, for instance, we can choose 1 as our parent and make 2 fall under that. Let&rsquo;s see how this might work:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/../img/assets/image%20%2879%29.png" width="auto" alt="Parents list."  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/../img/assets/image%20%2879%29.png" width="auto" alt="Parents list."  /></p>
 <p>Now, let&rsquo;s say we call <code>union(3,2)</code>. We can just set the parent of 3 to 2, as to create a structure like this:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/../img/assets/image%20%2880%29.png" width="auto" alt="union(1,2) followed by union(3,2)"  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/../img/assets/image%20%2880%29.png" width="auto" alt="union(1,2) followed by union(3,2)"  /></p>
 <p>This looks a lot like a tree!</p>
 <p>You might have noticed that this looks like a <strong>spindly tree</strong> though, which is bad for runtime! Perhaps we can convert it to the equivalent of a bushy tree- the union function can be made much more efficient using tricks such as WeightedQuickUnion and Path Compression. Watch 
 <a href="https://www.youtube.com/watch?v=JNa8BRRs8L4%5c&amp;list=PL8FaHk7qbOD59HbdZE3x52KOhJJS54BlT%5c&amp;index=1" rel="noopener">this playlist</a> for more information!</p>
@@ -1131,7 +1132,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
   }
 </style>
 
-<script src="http://localhost:52966/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
 
     </div>
 </div>
@@ -1148,7 +1149,7 @@ The Union Find data structure is a way of representing a bunch of nodes that are
         <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
         <ul>
             
-            <li><a href="http://localhost:52966/">Home</a></li>
+            <li><a href="http://localhost:1313/">Home</a></li>
             <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
     </footer>
 </div>

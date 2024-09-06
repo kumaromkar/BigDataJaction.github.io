@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52966&amp;path=livereload" data-no-instant defer></script>
-  <meta property="og:url" content="http://localhost:52966/python/abstract-data-types/binary-trees/balanced-search-structures/">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/python/abstract-data-types/binary-trees/balanced-search-structures/">
   <meta property="og:site_name" content="📈 BigData Junction">
   <meta property="og:title" content="📈 BigData Junction">
   <meta property="og:description" content="[!info] Content Note
@@ -12,6 +12,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="python">
+    <meta property="article:modified_time" content="2024-09-06T19:43:58+05:30">
 <title>Balanced Search Structures | 📈 BigData Junction</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -45,7 +46,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 
 
 
-<link rel="shortcut icon" type="image/png"  href="http://localhost:52966//favicon.png" />
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
 
 
 
@@ -75,10 +76,10 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
   
 
 
-<link href="http://localhost:52966/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
 
 
-<link href="http://localhost:52966/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
 
   
 
@@ -102,33 +103,33 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 
 
 
-<script src="http://localhost:52966/quartz/js/darkmode.2f72a6d848d93d4809cd4f2305703fb1.min.js"></script>
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
 
 
 
-<script src="http://localhost:52966/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
 
 
 
 <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
 <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
 
-<script src="http://localhost:52966/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
 
 
 
@@ -137,15 +138,15 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
   const SEARCH_ENABLED =  false 
   const LATEX_ENABLED =  true 
   const PRODUCTION =  false 
-  const BASE_URL = "http://localhost:52966/"
+  const BASE_URL = "http://localhost:1313/"
   const fetchData = Promise.all([
-        fetch("http:\/\/localhost:52966\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
           .then(data => data.json())
           .then(data => ({
             index: data.index,
             links: data.links,
           })),
-        fetch("http:\/\/localhost:52966\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
           .then(data => data.json()),
       ])
       .then(([{index, links}, content]) => ({
@@ -171,7 +172,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 
     
     initPopover(
-      "http://localhost:52966",
+      "http://localhost:1313",
        true 
     )
     
@@ -187,7 +188,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 
       const drawGlobal = true;
       drawGraph(
-          "http://localhost:52966",
+          "http://localhost:1313",
           drawGlobal,
           [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
           drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
@@ -256,7 +257,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="http://localhost:52966/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
 
 
 
@@ -265,7 +266,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
     <label for="menu-control">
       <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
     </label>
-    <h1 id="page-title"><a href="http://localhost:52966/">📈 BigData Junction</a></h1>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
     <div class="spacer"></div>
     <div id="search-icon" class="quartz-search">
       <p>Search</p>
@@ -1069,12 +1070,12 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/binary-trees/../../img/assets/image%20%2881%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/binary-trees/../../img/assets/image%20%2881%29.png" width="auto" alt=""  /></p>
 <p>If a node is full (reaches the limit), we must <strong>split the node</strong> by <strong>moving one value up to the parent</strong> and <strong>creating another child node</strong>. Here, we&rsquo;ll use a limit of <strong>3</strong>.</p>
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/binary-trees/../../img/assets/image%20%2882%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/binary-trees/../../img/assets/image%20%2882%29.png" width="auto" alt=""  /></p>
 <h3 id="properties-of-b-trees">
   Properties of B Trees
   <a class="anchor" href="#properties-of-b-trees">#</a>
@@ -1094,7 +1095,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/binary-trees/../../img/assets/image%20%2883%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/binary-trees/../../img/assets/image%20%2883%29.png" width="auto" alt=""  /></p>
 <p>In order to make our lives easier, we&rsquo;ll restrict our Red Black trees into <strong>left leaning red black trees</strong> which can <strong>only have red nodes on the left.</strong></p>
 <h3 id="tree-rotation">
   <strong>Tree Rotation</strong>
@@ -1105,13 +1106,13 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/binary-trees/../../img/assets/image%20%2884%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/binary-trees/../../img/assets/image%20%2884%29.png" width="auto" alt=""  /></p>
 <p>Notice that the <strong>8</strong> gets moved to be a <strong>right child</strong> of <strong>7</strong> after the rotation! This is necessary to preserve the binary tree structure.</p>
 <p>A &ldquo;right rotation on 7&rdquo; looks like this:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/abstract-data-types/binary-trees/../../img/assets/image%20%2885%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/abstract-data-types/binary-trees/../../img/assets/image%20%2885%29.png" width="auto" alt=""  /></p>
 <p>Here, the <strong>6</strong> gets moved to be a <strong>left child</strong> of <strong>7.</strong></p>
 <p>If you want to see how these rotations can be implemented into the <code>insert</code> algorithm, 
 <a href="https://inst.eecs.berkeley.edu/%5c~cs61b/sp20/materials/hw/hw8/index.html" rel="noopener">try the homework</a> on implementing a LLRB Tree! Below is a brief outline on how insert works:</p>
@@ -1183,7 +1184,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
   }
 </style>
 
-<script src="http://localhost:52966/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
 
     </div>
 </div>
@@ -1200,7 +1201,7 @@ A 2-4 tree is named such because each parent can have 2 to 4 children."
         <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
         <ul>
             
-            <li><a href="http://localhost:52966/">Home</a></li>
+            <li><a href="http://localhost:1313/">Home</a></li>
             <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
     </footer>
 </div>

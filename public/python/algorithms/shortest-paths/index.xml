@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>http://localhost:52966/python/algorithms/shortest-paths/</link>
+    <link>http://localhost:1313/python/algorithms/shortest-paths/</link>
     <description>Recent content on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="http://localhost:52966/python/algorithms/shortest-paths/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/python/algorithms/shortest-paths/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Dijkstra&#39;s Algorithm</title>
-      <link>http://localhost:52966/python/algorithms/shortest-paths/dijkstras-algorithm/</link>
+      <link>http://localhost:1313/python/algorithms/shortest-paths/dijkstras-algorithm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/algorithms/shortest-paths/dijkstras-algorithm/</guid>
+      <guid>http://localhost:1313/python/algorithms/shortest-paths/dijkstras-algorithm/</guid>
       <description>[!info] Content Note&#xA;Before continuing, make sure you&amp;rsquo;re comfortable with Graphs, Stacks and Queues, and Shortest Paths.&#xA;One sentence overview # Visit vertices in order of best-known distance from source; on visit, relax every edge from the visited vertex.&#xA;Detailed Breakdown # Djikstras uses a PriorityQueue to maintain the path with lowest cost from the starting node to every other node, an edgeTo array to keep track of the best known predecessor for each vertex, and a distTo array to keep track of the best known distance from the source vertex to every other vertex.</description>
     </item>
     <item>
       <title>A* Search</title>
-      <link>http://localhost:52966/python/algorithms/shortest-paths/a-search/</link>
+      <link>http://localhost:1313/python/algorithms/shortest-paths/a-search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/algorithms/shortest-paths/a-search/</guid>
+      <guid>http://localhost:1313/python/algorithms/shortest-paths/a-search/</guid>
       <description>[!info] Content Note&#xA;In order to understand A*, you&amp;rsquo;ll need to be comfortable Dijkstra&amp;rsquo;s Algorithm first!&#xA;A* Algorithm # The A* Search Algorithm is incredibly similar to Dijkstra&amp;rsquo;s Algorithm with one addition: a heuristic function.&#xA;This heuristic function calculates weights of a path from a vertex to a goal vertex. This way, we can help bias our algorithm in the right direction so that it doesn’t make a bunch of bad moves.</description>
     </item>
   </channel>

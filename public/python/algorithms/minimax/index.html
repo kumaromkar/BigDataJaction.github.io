@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52966&amp;path=livereload" data-no-instant defer></script>
-  <meta property="og:url" content="http://localhost:52966/python/algorithms/minimax/">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/python/algorithms/minimax/">
   <meta property="og:site_name" content="📈 BigData Junction">
   <meta property="og:title" content="Minimax Algorithm">
   <meta property="og:description" content="Game Trees # The Minimax algorithm is often used for making AI’s for turn-based games. It relies on the use of a type of game tree, which maps out all of the possible moves that players can make.
@@ -9,6 +9,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="python">
+    <meta property="article:modified_time" content="2024-09-06T19:43:58+05:30">
 <title>Minimax Algorithm | 📈 BigData Junction</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -39,7 +40,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 
 
 
-<link rel="shortcut icon" type="image/png"  href="http://localhost:52966//favicon.png" />
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
 
 
 
@@ -69,10 +70,10 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
   
 
 
-<link href="http://localhost:52966/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
 
 
-<link href="http://localhost:52966/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
 
   
 
@@ -96,33 +97,33 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 
 
 
-<script src="http://localhost:52966/quartz/js/darkmode.2f72a6d848d93d4809cd4f2305703fb1.min.js"></script>
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
 
 
 
-<script src="http://localhost:52966/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
 
 
 
 <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
 <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
 
-<script src="http://localhost:52966/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:52966/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
 
 
 
@@ -131,15 +132,15 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
   const SEARCH_ENABLED =  false 
   const LATEX_ENABLED =  true 
   const PRODUCTION =  false 
-  const BASE_URL = "http://localhost:52966/"
+  const BASE_URL = "http://localhost:1313/"
   const fetchData = Promise.all([
-        fetch("http:\/\/localhost:52966\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
           .then(data => data.json())
           .then(data => ({
             index: data.index,
             links: data.links,
           })),
-        fetch("http:\/\/localhost:52966\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
           .then(data => data.json()),
       ])
       .then(([{index, links}, content]) => ({
@@ -165,7 +166,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 
     
     initPopover(
-      "http://localhost:52966",
+      "http://localhost:1313",
        true 
     )
     
@@ -181,7 +182,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 
       const drawGlobal = true;
       drawGraph(
-          "http://localhost:52966",
+          "http://localhost:1313",
           drawGlobal,
           [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
           drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
@@ -250,7 +251,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="http://localhost:52966/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
 
 
 
@@ -259,7 +260,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
     <label for="menu-control">
       <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
     </label>
-    <h1 id="page-title"><a href="http://localhost:52966/">📈 BigData Junction</a></h1>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
     <div class="spacer"></div>
     <div id="search-icon" class="quartz-search">
       <p>Search</p>
@@ -1039,22 +1040,22 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2899%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2899%29.png" width="auto" alt=""  /></p>
 <p>In most games, this tree will spiral out of control because there are far too many nodes to possibly analyze (maybe even an infinite number)! Therefore, we need to set a <strong>depth</strong> to stop searching and compute a heuristic. For example, if the depth is <strong>3</strong>, it&rsquo;ll look something like this:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%28100%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%28100%29.png" width="auto" alt=""  /></p>
 <p>Now that the tree has bottomed out at the heuristic layer, we can start going back up to figure out which move we should make! The rules are simple: <strong>min-nodes take the smallest of the values</strong> while <strong>max-nodes take the largest of the values.</strong> Here&rsquo;s the first layer, for example:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%28101%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%28101%29.png" width="auto" alt=""  /></p>
 <p>Here&rsquo;s the entire tree filled out:</p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%28102%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%28102%29.png" width="auto" alt=""  /></p>
 <p>And here&rsquo;s the minimax algorithm in pseudocode format:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">minimax_value</span>(s: MinimaxNode):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> is_terminal(s):
@@ -1097,35 +1098,35 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2824%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2824%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2825%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2825%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2827%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2827%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2828%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2828%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2829%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2829%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2830%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2830%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2831%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2831%29.png" width="auto" alt=""  /></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2833%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2833%29.png" width="auto" alt=""  /></p>
 <p><em>NOTE: The 5&rsquo;s in the above image should all be 7&rsquo;s. This will be corrected soon (tm).</em></p>
 <h2 id="practice-problems">
   Practice Problems
@@ -1146,14 +1147,14 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2834%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2834%29.png" width="auto" alt=""  /></p>
 </div><input type="radio" class="toggle" name="tabs-minimax-q1" id="tabs-minimax-q1-1"  />
   <label for="tabs-minimax-q1-1">Q1 Answer</label>
   <div class="book-tabs-content markdown-inner"><p>Here&rsquo;s my answer! The green arrows denote the order in which the nodes are visited. Note that the branches are pruned every time <strong>alpha is greater than beta.</strong></p>
 <p>
 
 
-<img src="http://localhost:52966/python/algorithms/../img/assets/image%20%2835%29.png" width="auto" alt=""  /></p>
+<img src="http://localhost:1313/python/algorithms/../img/assets/image%20%2835%29.png" width="auto" alt=""  /></p>
 </div></div>
 
 <p>This was just an ordinary problem and <strong>might not be enough to ensure that you fully understand minimax trees</strong>! Here are some checks you can do to ensure that your understanding is strong:</p>
@@ -1211,7 +1212,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
   }
 </style>
 
-<script src="http://localhost:52966/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
 
     </div>
 </div>
@@ -1228,7 +1229,7 @@ In the tree, there are two types of nodes: maximizing nodes and minimizing nodes
         <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
         <ul>
             
-            <li><a href="http://localhost:52966/">Home</a></li>
+            <li><a href="http://localhost:1313/">Home</a></li>
             <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
     </footer>
 </div>

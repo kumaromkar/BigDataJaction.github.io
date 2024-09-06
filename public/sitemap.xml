@@ -2,139 +2,182 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:52966/python/oop/inheritance/</loc>
+    <loc>http://localhost:1313/python/oop/inheritance/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/asymptotics/asymptotics/</loc>
+    <loc>http://localhost:1313/python/asymptotics/asymptotics/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/shortest-paths/dijkstras-algorithm/</loc>
+    <loc>http://localhost:1313/python/algorithms/shortest-paths/dijkstras-algorithm/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/minimum-spanning-trees/kruskals-algorithm/</loc>
+    <loc>http://localhost:1313/python/algorithms/minimum-spanning-trees/kruskals-algorithm/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/oop/access-control/</loc>
+    <loc>http://localhost:1313/python/oop/access-control/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/minimum-spanning-trees/prims-algorithm/</loc>
+    <loc>http://localhost:1313/python/algorithms/minimum-spanning-trees/prims-algorithm/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/oop/dynamic-method-selection/</loc>
+    <loc>http://localhost:1313/python/oop/dynamic-method-selection/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/oop/objects/</loc>
+    <loc>http://localhost:1313/python/oop/objects/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/oop/generics/</loc>
+    <loc>http://localhost:1313/python/oop/generics/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/collections/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/collections/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/</loc>
+    <loc>http://localhost:1313/python/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/searching/</loc>
+    <loc>http://localhost:1313/python/algorithms/searching/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/binary-trees/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/binary-trees/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/shortest-paths/</loc>
+    <loc>http://localhost:1313/python/algorithms/shortest-paths/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/minimum-spanning-trees/</loc>
+    <loc>http://localhost:1313/python/algorithms/minimum-spanning-trees/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/oop/</loc>
+    <loc>http://localhost:1313/python/oop/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/asymptotics/</loc>
+    <loc>http://localhost:1313/python/asymptotics/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/</loc>
+    <loc>http://localhost:1313/python/algorithms/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/graphs/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/graphs/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/hashing/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/hashing/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/union-find-disjoint-sets/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/union-find-disjoint-sets/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/sorting/</loc>
+    <loc>http://localhost:1313/python/algorithms/sorting/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/comparables-and-comparators/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/comparables-and-comparators/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/shortest-paths/a-search/</loc>
+    <loc>http://localhost:1313/python/algorithms/shortest-paths/a-search/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/minimax/</loc>
+    <loc>http://localhost:1313/python/algorithms/minimax/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/misc-topics/</loc>
+    <loc>http://localhost:1313/python/misc-topics/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/binary-trees/balanced-search-structures/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/binary-trees/balanced-search-structures/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/binary-trees/heaps/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/binary-trees/heaps/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/binary-trees/tries/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/binary-trees/tries/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/collections/arrays/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/collections/arrays/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/collections/linked-lists/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/collections/linked-lists/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/collections/sets/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/collections/sets/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/abstract-data-types/collections/stacks-and-queues/</loc>
+    <loc>http://localhost:1313/python/abstract-data-types/collections/stacks-and-queues/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/searching/binary-search/</loc>
+    <loc>http://localhost:1313/python/algorithms/searching/binary-search/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/asymptotics/amortization/</loc>
+    <loc>http://localhost:1313/python/asymptotics/amortization/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/asymptotics/asymptotics-practice/</loc>
+    <loc>http://localhost:1313/python/asymptotics/asymptotics-practice/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/misc-topics/modular-arithmetic/</loc>
+    <loc>http://localhost:1313/python/misc-topics/modular-arithmetic/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/misc-topics/more-resources/</loc>
+    <loc>http://localhost:1313/python/misc-topics/more-resources/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/searching/breadth-first-search-bfs/</loc>
+    <loc>http://localhost:1313/python/algorithms/searching/breadth-first-search-bfs/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/contributing/</loc>
+    <loc>http://localhost:1313/contributing/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/python/algorithms/searching/depth-first-search-dfs/</loc>
+    <loc>http://localhost:1313/python/algorithms/searching/depth-first-search-dfs/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:52966/</loc>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url>
 </urlset>

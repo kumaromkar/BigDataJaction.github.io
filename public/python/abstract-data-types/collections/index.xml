@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>http://localhost:52966/python/abstract-data-types/collections/</link>
+    <link>http://localhost:1313/python/abstract-data-types/collections/</link>
     <description>Recent content on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="http://localhost:52966/python/abstract-data-types/collections/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/python/abstract-data-types/collections/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>http://localhost:52966/python/abstract-data-types/collections/arrays/</link>
+      <link>http://localhost:1313/python/abstract-data-types/collections/arrays/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/abstract-data-types/collections/arrays/</guid>
+      <guid>http://localhost:1313/python/abstract-data-types/collections/arrays/</guid>
       <description>[!info] Content Note&#xA;This page assumes prior knowledge of Python lists from CS61A or equivalent.&#xA;Arrays are a very popular data structure that stores an indexed list of data.&#xA;Properties # Fixed length: after instantiation, the length of an array cannot be changed. Every value in array is the same type and holds the same amount of bits in memory. Zero-indexed. That means arr[0] returns the first value, and arr[arr.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:52966/python/abstract-data-types/collections/linked-lists/</link>
+      <link>http://localhost:1313/python/abstract-data-types/collections/linked-lists/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/abstract-data-types/collections/linked-lists/</guid>
+      <guid>http://localhost:1313/python/abstract-data-types/collections/linked-lists/</guid>
       <description>[!info] Content Note&#xA;This page assumes prior knowledge of linked lists from CS61A or equivalent. I&amp;rsquo;ll assume you have already worked with basic singly linked lists before.&#xA;The linked list is an extremely common recursive data structure that allows storage and access of an arbitrary amount of data.&#xA;Feature List of an Effective Linked List # Rebranding- represents Node as an individual object rather than having one monolithic List type.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:52966/python/abstract-data-types/collections/sets/</link>
+      <link>http://localhost:1313/python/abstract-data-types/collections/sets/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/abstract-data-types/collections/sets/</guid>
+      <guid>http://localhost:1313/python/abstract-data-types/collections/sets/</guid>
       <description>[!warning] Warning&#xA;This page is incomplete. help make it better!&#xA;Basics # A Set stores a collection of values with no duplicates. Sets have no inherent order, so you can&amp;rsquo;t rely on expecting any value to come before any other value when iterating through them.&#xA;Some set functions include:&#xA;add(T x) contains(T x) size() ArraySet # An ArraySet is an array-based solution to a set implementation.&#xA;Objects get added to an array that gets resized when it&amp;rsquo;s too full.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:52966/python/abstract-data-types/collections/stacks-and-queues/</link>
+      <link>http://localhost:1313/python/abstract-data-types/collections/stacks-and-queues/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:52966/python/abstract-data-types/collections/stacks-and-queues/</guid>
+      <guid>http://localhost:1313/python/abstract-data-types/collections/stacks-and-queues/</guid>
       <description>Stacks and queues are two very common data structures used for a variety of applications from CPU processes to finding shortest paths using Dijkstra&amp;rsquo;s Algorithm. Fundamentally, they are very similar in structure and only differ by the order in which items are popped from them.&#xA;Pushing and Popping # Pushing # Adding an item to a stack or queue is called pushing. This will either put the item on the top of a stack or in the back of a queue.</description>
     </item>
   </channel>
