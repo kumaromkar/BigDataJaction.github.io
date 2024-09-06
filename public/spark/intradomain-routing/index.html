@@ -1,0 +1,3287 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/spark/intradomain-routing/">
+  <meta property="og:site_name" content="📈 BigData Junction">
+  <meta property="og:title" content="Introduction to Routing">
+  <meta property="og:description" content="Addressing and Naming # In the real world, people have names and are located at addresses. When we move around, our name stays the same, but our address changes.
+The internet works in a very similar manner. Hosts have a network name (which describes which host it is) and a network address (where the host is currently located).
+Conceptual Intro to Routing # First, we’ll run a distributed routing algorithm between switches and routers.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="spark">
+    <meta property="article:modified_time" content="2024-06-16T15:39:56+05:30">
+<title>Introduction to Routing | 📈 BigData Junction</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.a861a34b0976720d1504be0c2ee9870137640447a7fcac0c288dc885ce0f9bdb.css" integrity="sha256-qGGjSwl2cg0VBL4MLumHATdkBEen/KwMKI3Ihc4Pm9s=" crossorigin="anonymous">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  
+
+
+
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="Addressing and Naming # In the real world, people have names and are located at addresses. When we move around, our name stays the same, but our address changes.
+The internet works in a very similar manner. Hosts have a network name (which describes which host it is) and a network address (where the host is currently located).
+Conceptual Intro to Routing # First, we&rsquo;ll run a distributed routing algorithm between switches and routers."
+/>
+<title>
+  Introduction to Routing
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+
+
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+
+
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+  
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
+
+
+
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+
+
+
+<script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+<script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+
+
+
+ 
+<script>
+  const SEARCH_ENABLED =  false 
+  const LATEX_ENABLED =  true 
+  const PRODUCTION =  false 
+  const BASE_URL = "http://localhost:1313/"
+  const fetchData = Promise.all([
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+          .then(data => data.json())
+          .then(data => ({
+            index: data.index,
+            links: data.links,
+          })),
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+          .then(data => data.json()),
+      ])
+      .then(([{index, links}, content]) => ({
+        index,
+        links,
+        content,
+      }))
+
+    const render = () => {
+    
+    const siteBaseURL = new URL(BASE_URL);
+    const pathBase = siteBaseURL.pathname;
+    const pathWindow = window.location.pathname;
+    const isHome = pathBase == pathWindow;
+
+    addCopyButtons();
+    
+
+    
+
+    addCollapsibleCallouts();
+    
+
+    
+    initPopover(
+      "http://localhost:1313",
+       true 
+    )
+    
+
+    
+    const footer = document.getElementById("footer")
+    if (footer) {
+      const container = document.getElementById("graph-container")
+      
+      if (!container) return requestAnimationFrame(render)
+      
+      container.textContent = ""
+
+      const drawGlobal = true;
+      drawGraph(
+          "http://localhost:1313",
+          drawGlobal,
+          [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
+          drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+        );
+
+      }
+    
+
+    
+      var els = document.getElementsByClassName("mermaid");
+      if (els.length > 0) {
+        import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+          (obj) => {
+            
+            
+            obj.default.init();
+          }
+        )
+      }
+    
+  }
+
+  const init = (doc = document) => {
+    
+    addCopyButtons();
+    
+
+    addTitleToCodeBlocks();
+    renderMathInElement(doc.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      macros: {
+        '’': "'"
+      },
+      throwOnError : false
+    });
+    
+  };
+</script>
+
+<script>
+  window.Million = {
+    navigate: (url) => (window.location.href = url),
+    prefetch: () => {},
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init()
+    render()
+  })
+</script>
+
+
+</head>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<header class="book-header">
+    
+    <label for="menu-control">
+      <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    </label>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon" class="quartz-search">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <main class="flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<div class="menu-search">
+  <div id="search-icon" class="quartz-search">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+      <title id="title">Search Icon</title>
+      <desc id="desc">Icon to open search</desc>
+      <g class="search-path" fill="none">
+        <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+        <circle cx="8" cy="8" r="7" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-36a3ed262b315ff04085d7b53a448994" class="toggle"  />
+    <label for="section-36a3ed262b315ff04085d7b53a448994" class="flex justify-between">
+      <a href="/python/" class="book-collapse-toggle ">Python</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Object Oriented Programming</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/inheritance/" class="">Inheritance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/access-control/" class="">Access Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/dynamic-method-selection/" class="">Dynamic Method Selection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/objects/" class="">Java Objects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/generics/" class="">Generic Types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Asymptotics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics/" class="">Asymptotic Analysis Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/amortization/" class="">Amortization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics-practice/" class="">Asymptotics Practice</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Abstract Data Types</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2805f6370848571b8798d519e9c354a9" class="toggle"  />
+    <label for="section-2805f6370848571b8798d519e9c354a9" class="flex justify-between">
+      <a href="/python/abstract-data-types/collections/" class="book-collapse-toggle ">Collections</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/arrays/" class="">Arrays</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/linked-lists/" class="">Linked Lists</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/sets/" class="">Sets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/stacks-and-queues/" class="">Stacks and Queues</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f2ba402577081742d50fe3e1cde178c1" class="toggle"  />
+    <label for="section-f2ba402577081742d50fe3e1cde178c1" class="flex justify-between">
+      <a href="/python/abstract-data-types/binary-trees/" class="book-collapse-toggle ">Binary Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/balanced-search-structures/" class="">Balanced Search Structures</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/heaps/" class="">Heaps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/tries/" class="">Tries</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/hashing/" class="">Hashing and Hash Tables</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/union-find-disjoint-sets/" class="">Union Find (Disjoint Sets)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/comparables-and-comparators/" class="">Comparables and Comparators</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Algorithms</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-840c6fbe99128235711db7f7aea6e8ea" class="toggle"  />
+    <label for="section-840c6fbe99128235711db7f7aea6e8ea" class="flex justify-between">
+      <a href="/python/algorithms/searching/" class="book-collapse-toggle ">Searching</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/binary-search/" class="">Binary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/breadth-first-search-bfs/" class="">Breadth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/depth-first-search-dfs/" class="">Depth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-15240e0c0d29d00ce3941dfb840ed889" class="toggle"  />
+    <label for="section-15240e0c0d29d00ce3941dfb840ed889" class="flex justify-between">
+      <a href="/python/algorithms/shortest-paths/" class="book-collapse-toggle ">Shortest Paths</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/dijkstras-algorithm/" class="">Dijkstra&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/a-search/" class="">A* Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ebd3f2b246ca70c549a11d8499364c15" class="toggle"  />
+    <label for="section-ebd3f2b246ca70c549a11d8499364c15" class="flex justify-between">
+      <a href="/python/algorithms/minimum-spanning-trees/" class="book-collapse-toggle ">Minimum Spanning Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/kruskals-algorithm/" class="">Kruskal&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/prims-algorithm/" class="">Prim&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/sorting/" class="">Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimax/" class="">Minimax Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Misc. Topics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/more-resources/" class="">More Resources</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8eaa952c883657ff0fde6609f1afb6ac" class="toggle"  />
+    <label for="section-8eaa952c883657ff0fde6609f1afb6ac" class="flex justify-between">
+      <a href="/sql/" class="book-collapse-toggle ">SQL</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2cb61b7535210994a46f35adee41bda7" class="toggle"  />
+    <label for="section-2cb61b7535210994a46f35adee41bda7" class="flex justify-between">
+      <a href="/hadoop/" class="book-collapse-toggle ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f6ae2f239b12d2df8093c89b05eba5b9" class="toggle"  />
+    <label for="section-f6ae2f239b12d2df8093c89b05eba5b9" class="flex justify-between">
+      <a href="/hive/" class="book-collapse-toggle ">Hive</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2602ae26ced6eeaf33acf65208f5d2ab" class="toggle"  />
+    <label for="section-2602ae26ced6eeaf33acf65208f5d2ab" class="flex justify-between">
+      <a href="/databases/" class="book-collapse-toggle ">Databases</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f848154d2659534e47b8b735c6a1aa4d" class="toggle"  />
+    <label for="section-f848154d2659534e47b8b735c6a1aa4d" class="flex justify-between">
+      <a href="/pyspark/" class="book-collapse-toggle ">Pyspark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-463481d181ee2ba85d46b84df8b4ee12" class="toggle"  />
+    <label for="section-463481d181ee2ba85d46b84df8b4ee12" class="flex justify-between">
+      <a href="/airflow/" class="book-collapse-toggle ">Airflow</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/resources/" class="">Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/midterm-tips/" class="">Midterm Tips</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c9e3e16db5c81a42de0a79d6b6abba50" class="toggle"  />
+    <label for="section-c9e3e16db5c81a42de0a79d6b6abba50" class="flex justify-between">
+      <a href="/warehousing/" class="book-collapse-toggle ">Data Warehousing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/binary-decision-making/" class="">Binary Decision Making</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/hypothesis-testing/" class="">Hypothesis Testing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/decision-theory/" class="">Decision Theory</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/parameter-estimation/" class="">Parameter Estimation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/sampling/" class="">Sampling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/regression-and-glms/" class="">Regression and GLMs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/nonparametric-methods/" class="">Nonparametric Methods</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/interpretability/" class="">Interpretability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/causality/" class="">Causality</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/bandits/" class="">Bandits</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Markov-Decision-Processes/" class="">Markov Decision Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Reinforcement-Learning/" class="">Reinforcement Learning</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d841c4a4c551bb4e21d460836d4142" class="toggle" checked />
+    <label for="section-86d841c4a4c551bb4e21d460836d4142" class="flex justify-between">
+      <a href="/spark/" class="book-collapse-toggle ">Spark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intro-to-the-internet/" class="">Intro to the Internet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/cli/" class="">CLI Tools</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intradomain-routing/" class="active">Introduction to Routing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/measuring-link-performance/" class="">Measuring Link Performance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/resource-sharing-packet-and-circuit-switching/" class="">Resource Sharing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/internet-organization-and-layers/" class="">Internet Organization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/sockets-and-ports/" class="">Sockets and Ports</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/addressing-ip/" class="">Addressing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/interdomain-routing-bgp/" class="">Interdomain Routing (BGP)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/TCP/" class="">TCP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/reliability/" class="">Reliability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/congestion-control/" class="">Congestion Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/dns/" class="">DNS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/web/" class="">Web</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/ethernet/" class="">Ethernet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/end-to-end-operation/" class="">End to End Operation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/final-review/" class="">Final Review</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="toggle"  />
+    <label for="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="flex justify-between">
+      <a href="/git/" class="book-collapse-toggle ">Version Control-Git</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-1-OS-Basics/" class="">Chapter 1: OS Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-2-Processes/" class="">Chapter 2: Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-3-Threads/" class="">Chapter 3: Threads</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-4-I-O/" class="">Chapter 4: I/O</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-5-Synchronization/" class="">Chapter 5: Synchronization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-6-Scheduling/" class="">Chapter 6: Scheduling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-7-Address-Translation/" class="">Chapter 7: Address Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-8-Caching/" class="">Chapter 8: Caching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-9-File-Systems/" class="">Chapter 9: File Systems</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Appendix-A-GDB-foobars/" class="">GDB Reference</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/contributing"  target="_blank" rel="noopener">
+        Contribute
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/64bitpandas/notes/issues"  target="_blank" rel="noopener">
+        Feedback
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+    <div class="book-page container">
+      
+
+      
+      
+  <article class="markdown">
+    <h1 class="title">Introduction to Routing</h1>
+    
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+    
+
+    
+    
+      
+      
+    
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+<h2 id="addressing-and-naming">
+  Addressing and Naming
+  <a class="anchor" href="#addressing-and-naming">#</a>
+</h2>
+<p>In the real world, people have names and are located at addresses. When we move around, our name stays the same, but our address changes.</p>
+<p>The internet works in a very similar manner. Hosts have a <strong>network name</strong> (which describes which host it is) and a <strong>network address</strong> (where the host is currently located).</p>
+<h2 id="conceptual-intro-to-routing">
+  Conceptual Intro to Routing
+  <a class="anchor" href="#conceptual-intro-to-routing">#</a>
+</h2>
+<ul>
+<li>First, we&rsquo;ll run a distributed routing algorithm between switches and routers. This algorithm will help us gather information about the network, and compute paths between its topology.</li>
+<li>Within each router, the algorithm will store forwarding information to send packets to different links based on their destination. This is known as the <strong>forwarding table</strong>.</li>
+</ul>
+<p>The distinction between <em>creating</em> the forwarding table and <em>using</em> the forwarding table is captured in the <strong>control plane</strong> and <strong>data plane</strong>.</p>
+<ul>
+<li>There is also a third plane, the <strong>management plane</strong>, which allows the router to interact with humans and external systems to configure and monitor the device.</li>
+</ul>
+<p>The control plane is the mechanism using to compute the forwarding table.</p>
+<ul>
+<li>Inherently global (must know topology)</li>
+<li>Contains routing algorithm</li>
+<li>Relatively infrequent time scale (per network event)</li>
+<li>Primary challenge: compute routes at scale while accounting for network failure and the autonomy of ISPs</li>
+</ul>
+<p>The data plane uses the table to forward packets.</p>
+<ul>
+<li>Inherently local (only depends on arriving packet and local table)</li>
+<li>Contains forwarding algorithm</li>
+<li>Relatively frequent time scale (per packet arrival)</li>
+<li>Primary challenge: perform routing operations at a nanosecond time scale</li>
+</ul>
+<h3 id="forwarding-vs-routing-summary">
+  Forwarding vs Routing: Summary
+  <a class="anchor" href="#forwarding-vs-routing-summary">#</a>
+</h3>
+<p><strong>Forwarding</strong> is the process of looking up a packet&rsquo;s destination in a routing table and sending the packet to the correct neighbor. Forwarding is inherently <em>local</em> and operates on the <em>data plane</em>.</p>
+<p><strong>Routing</strong> is the process of routers communicating with other routers to determine how to populate forwarding tables. Routing is inherently <em>global</em> and operates on the <em>control plane</em>.</p>
+<h1 id="destination-based-forwarding">
+  Destination-Based Forwarding
+  <a class="anchor" href="#destination-based-forwarding">#</a>
+</h1>
+<h2 id="forwarding-tables">
+  Forwarding Tables
+  <a class="anchor" href="#forwarding-tables">#</a>
+</h2>
+<p>For the data plane work, each router needs to store information about how to reach a destination.</p>
+<p>A simple way of doing this is <strong>destination-based forwarding:</strong> the decision of where to route packets to depends only on its destination.</p>
+<h2 id="routing-graph-representation">
+  Routing Graph Representation
+  <a class="anchor" href="#routing-graph-representation">#</a>
+</h2>
+<p>We can graph paths that a packet will take to one particular destination within the network.</p>
+<ul>
+<li>Each routing table contributes directed connections from its host router to the next hop in the table.</li>
+<li>Each node/router should have exactly one arrow to another node.</li>
+<li>Once two paths join at a router, they will never split again.</li>
+<li>The set of all paths creates a <strong>directed delivery tree</strong> that covers every node that is able to reach the destination. This is a type of oriented spanning tree where the root is the destination node.</li>
+</ul>
+<h2 id="routing-state-validity">
+  Routing State Validity
+  <a class="anchor" href="#routing-state-validity">#</a>
+</h2>
+<p>The minimum requirement for a &ldquo;good&rdquo; routing state should be that the destination is reachable.</p>
+<p>A global routing state is <em>valid</em> if it produces forwarding decision that always deliver packets to their destinations.</p>
+<p><strong>Validity is achieved if and only if for each destination, there are no dead ends or cycles.</strong></p>
+<p>The goal of routing procols is to compute a valid state.</p>
+<h3 id="validation">
+  Validation
+  <a class="anchor" href="#validation">#</a>
+</h3>
+<p>Now that we have a condition for validity, how do we actually check that it&rsquo;s true?</p>
+<ul>
+<li>First, select a single destination.</li>
+<li>For each router, mark the outgoing edge with an arrow. There should only be one per router if using destination-based routing.</li>
+<li>Eliminate all links that were not marked.</li>
+<li>The state is now valid if and only if the remaining graph is a directed delivery tree (acyclic, with every arrow pointing towards the destination).</li>
+<li>Repeat this process for every destination.</li>
+</ul>
+<h2 id="types-of-routers">
+  Types of Routers
+  <a class="anchor" href="#types-of-routers">#</a>
+</h2>
+<p>The internet is a network of networks, and not all of these networks may use the same protocol. This is primarily because each network has a different use case, which have different requirements (size, number of hosts, bandwidth, cost&hellip;)</p>
+<p><strong>Intradomain Routing::</strong> also known as Autonomous System: routing within a single network</p>
+<ul>
+<li>Usually use IGPs (Interior Gateway Protocols)</li>
+<li>Each network can choose their own protocol</li>
+</ul>
+<p><strong>Interdomain Routing:</strong> routing between different networks (autonomous systems)</p>
+<ul>
+<li>EGPs (Exterior Gateway Protocols)</li>
+<li>All AS&rsquo;s agree on a protocol</li>
+<li>Internet has used BGP for a long time</li>
+</ul>
+<h1 id="intradomain-routing-l2l3">
+  Intradomain Routing (L2/L3)
+  <a class="anchor" href="#intradomain-routing-l2l3">#</a>
+</h1>
+<h2 id="least-cost-routing">
+  Least-Cost Routing
+  <a class="anchor" href="#least-cost-routing">#</a>
+</h2>
+<p>How do we quantify how &ldquo;good&rdquo; a route is exactly?</p>
+<ol>
+<li>Route needs to work: destination needs to be reachable (no loops or dead ends)</li>
+<li>Minimize cost: number of hops, price, progagation delay, distance, reliability
+<ol>
+<li>Cost can be abstracted into some general value/weight for each edge</li>
+</ol>
+</li>
+</ol>
+<p>Costs are usually configured/determined based on routers and their links.</p>
+<p>Least-costs:</p>
+<ul>
+<li>avoid loops (since loop = infinite cost)</li>
+<li>are destination-based (all costs depend on destination only)</li>
+<li>form a spanning tree</li>
+</ul>
+<h3 id="trivial-routes">
+  Trivial Routes
+  <a class="anchor" href="#trivial-routes">#</a>
+</h3>
+<p>Routes that are unimportant and can be ignored:</p>
+<ul>
+<li>Route from router to itself (loopback)</li>
+<li>Route away from router with only one neighbor (default route)
+<ul>
+<li>Default routes sometimes exist when there&rsquo;s multiple routes, but one is always preferred (wifi vs cellular)</li>
+</ul>
+</li>
+</ul>
+<h3 id="static-routes">
+  Static Routes
+  <a class="anchor" href="#static-routes">#</a>
+</h3>
+<ul>
+<li>Manually entered in by an operator</li>
+<li>Typically used when operator has specific need (hosts don&rsquo;t usually participate in routing procols)</li>
+</ul>
+<h2 id="distance-vector-routing-protocols">
+  Distance-Vector Routing Protocols
+  <a class="anchor" href="#distance-vector-routing-protocols">#</a>
+</h2>
+<p>D-V routing protocols are very similar to the Bellman-Ford shortest path algorithm.
+<a class="internal-link broken">CS70 Notes on Graphs</a></p>
+<p>However, Distance-Vector routing is asynchronous and has incomplete state, since each router can collect information simultaneously but only knows about its own local state. This differs from the traditional version of Bellman-Ford, which is serial (only one calculation at one time, and the entire state is known).</p>
+<p>The basic table update algorithm for D-V is as follows:</p>
+<ul>
+<li>Neighbors advertise a route with a particular distance/cost to a particular destination
+<ul>
+<li><em>do not</em> advertise to neighbor whos entry is in the nextHop table (avoid split horizon problem)</li>
+</ul>
+</li>
+<li>Router adds 1 to advertised distance and saves it in the nextHop table, along with the address of the neighbor that advertised it</li>
+<li>If a neighbor gives a lower number than the current nextHop, it replaces the previous entry
+<ul>
+<li>Exception: any cost given by current best neighbor will overwrite the entry, even if it&rsquo;s larger</li>
+<li>Exception to exception: stop counting at some maximum value to avoid counting to infinity when a loop exists</li>
+</ul>
+</li>
+<li>Direct routes need to be manually populated to initialize cost</li>
+</ul>
+<h3 id="failures-in-d-v">
+  Failures in D-V
+  <a class="anchor" href="#failures-in-d-v">#</a>
+</h3>
+<p><strong>What happens when the network is unreliable?</strong>
+Sometimes, packets get dropped. An easy solution is to continuously advertise to all neighbors at a certain interval. (This differs from triggered updates- only sending on change. Choosing between the two is a tradeoff of reliability vs efficiency.)</p>
+<ul>
+<li>Can also combine this with triggers to be most responsive: when table changes, when link becomes available, when link fails</li>
+</ul>
+<p>The order in which packets arrive can also be nondeterministic.</p>
+<p><strong>What happens when a link between two routers fail completely?</strong>
+We can add a new field to the routing table, <strong>Time To Live (TTL).</strong> Table entries will only be valid until that TTL expires. Then, when a link goes down, the time will run out and the entry will be deleted, so it can then be  replaced by the next best neighbor.</p>
+<ul>
+<li>Most effective: set TTL to some multiple of the advertisement interval to guarantee that routes have at least a few tries before timing out</li>
+<li>If a route does go down and the TTL expires, we can <strong>poison</strong> that route by setting its cost to $\infty$. So instead of not advertising a route, we actively advertise that the router doesn&rsquo;t have a route. This makes the information propagate faster than waiting for timeouts.</li>
+</ul>
+<p><strong>How can we deal with the split horizon problem?</strong></p>
+<ul>
+<li>Recall that the split horizon problem occurs when the optimal route expires/dies, and an unrelated route advertises a path away from the actual destination</li>
+<li>Solution: <strong>Poison reverse</strong>: if a router advertises a loop, set that value to $\infty$ so the next advertisement is immediately accepted</li>
+</ul>
+<h2 id="link-state-routing">
+  Link-State Routing
+  <a class="anchor" href="#link-state-routing">#</a>
+</h2>
+<ul>
+<li>Very common IGP</li>
+<li>Major examples include IS-IS (intermediate system to intermediate system) and OSPF (open shortest path first)</li>
+<li>Main principle: if a router had a global view of the network, it could easily compute the path to any destination.
+<ul>
+<li>Every router builds a full graph of the network and finds paths from itself to every destination on the graph
+<ul>
+<li>Can use traditional shortest paths algorithms like Dijkstras</li>
+</ul>
+</li>
+<li>Populate forwarding table with next hop: only works if all other routers agree on what the best path is</li>
+</ul>
+</li>
+</ul>
+<h3 id="how-does-this-compare-to-distance-vector">
+  How does this compare to distance-vector?
+  <a class="anchor" href="#how-does-this-compare-to-distance-vector">#</a>
+</h3>
+<p>D-V is distributed globally (all nodes do it), but using local data.
+Link-State is computed <strong>locally using global data</strong>.</p>
+<ul>
+<li>Global data includes the state of every link in the network (if it exists, if it&rsquo;s up, and how much it costs)</li>
+</ul>
+<h3 id="sharing-info-globally">
+  Sharing info globally
+  <a class="anchor" href="#sharing-info-globally">#</a>
+</h3>
+<p>The hardest part of link-state is getting the global state itself.
+To do this, every router needs to:</p>
+<ul>
+<li>find out who its neighbors are (exchanges hello messages)</li>
+<li>tell everyone about neighbors (use <strong>flooding</strong>: when local information changes upon receiving info from a neighbor, send to all other neighbors)</li>
+<li>Tell everyone about adjacent destinations</li>
+</ul>
+<h3 id="link-state-flooding">
+  Link State Flooding
+  <a class="anchor" href="#link-state-flooding">#</a>
+</h3>
+<p>Some issues with the brute-force flooding idea:</p>
+<ul>
+<li>Doesn&rsquo;t scale well with huge networks</li>
+<li>Since packets are duplicated, the number of packets sent grows exponentially if the branching factor is greater than 1</li>
+<li>Packets can be dropped on unreliable networks</li>
+<li>Can&rsquo;t guarantee that individual routers will agree on best paths (see convergence section)</li>
+</ul>
+<p>Some solutions:</p>
+<ul>
+<li>Each router stores a sequence number, and puts it into their packets. If the info packet has a lower sequence number than the current revision, it&rsquo;s already been seen and is ignored. If it&rsquo;s greater, remember the sequence number and send the flood update to neighbors.</li>
+<li>Periodically resend floods to guarantee reliability</li>
+</ul>
+<h3 id="link-state-convergence">
+  Link State Convergence
+  <a class="anchor" href="#link-state-convergence">#</a>
+</h3>
+<p>Some calculations in link-state management take time, and in that time the state can change, causing divergence between routers.</p>
+<p>Failure not detected: packets are sent to a dead link
+Failure detected but not recomputed: can create dead ends
+Failure detected but not globally notified: can create loops
+State changes: packets in transit can get stuck if their destination link goes down</p>
+<h2 id="spanning-tree-protocol">
+  Spanning Tree Protocol
+  <a class="anchor" href="#spanning-tree-protocol">#</a>
+</h2>
+<h3 id="learning-switches">
+  Learning Switches
+  <a class="anchor" href="#learning-switches">#</a>
+</h3>
+<ul>
+<li>Unlike Distance-Vector and Link-State protocols, which have static local table states, tables are filled in opportunistically using data packets.
+<ul>
+<li>This means that instead of dropping packets to unknown destinations, send the packet to all possible destinations (i.e. flood it).
+<ul>
+<li>Also flood when the recorded nextHop is the same as the message&rsquo;s sender (avoid loops).</li>
+</ul>
+</li>
+<li>Static routes also need to be learned, so on the initial send typically all of the routers will need to be pinged.</li>
+<li>Eventually, one of the packets will reach the destination, and information can then be sent backwards so that all routers in the path can learn about the host.</li>
+</ul>
+</li>
+<li>Doesn&rsquo;t work when network has loops</li>
+</ul>
+<h3 id="from-learning-switches-to-spanning-tree">
+  From Learning Switches to Spanning Tree
+  <a class="anchor" href="#from-learning-switches-to-spanning-tree">#</a>
+</h3>
+<p>In order to address the issue that learning switches don&rsquo;t work when the network has cycles, we can use the <strong>spanning tree protocol:</strong> the main idea being that we disable routes until we create a spanning tree of the entire network.</p>
+<p>STP is only used in local (layer 2) networks, where bandwidth is generally not a concern and the number of nodes is relatively small, allowing for packet flooding.</p>
+<p>Since flooding can find hosts, no static routes are needed anymore.</p>
+<p><strong>Step 1: find least cost paths from every switch to the root</strong></p>
+<p>Introduction:</p>
+<ul>
+<li>This is basically the Distance-Vector protocol with a single table entry where that entry is the destination, or the switch at the root of the tree.</li>
+<li>Every switch has a unique orderable ID.</li>
+<li>Our goal is to first find the root (lowest ID), then find the best path to the root (lowest cost).
+Algorithm:</li>
+<li>All switches begin by thinking they are the root.</li>
+<li>On receiving a route message from a neighbor:
+<ul>
+<li>If the the advertised root is smaller, use it instead.</li>
+<li>If it&rsquo;s larger, ignore it.</li>
+<li>If it is the same as stored, use normal D-V update rules to minimize the distance, breaking ties by preferring the next hop with the smallest ID.</li>
+</ul>
+</li>
+<li>Only the root and switches that think they are the root will generate periodic advertisements. All other switches will forward advertisements when received.</li>
+</ul>
+<p><strong>Step 2: disable data delivery on every link not on a shortest path to root</strong></p>
+<ul>
+<li>Each switch:
+<ul>
+<li>Enables the link along the best path to root</li>
+<li>Enable all links to hosts (anything that is not a switch, i.e. have not sent any advertisements)</li>
+<li>Disables every other link</li>
+</ul>
+</li>
+</ul>
+<p><strong>Step 3:</strong> when a link on the tree fails, start over</p>
+<ul>
+<li>If a route expires, routers think they are the root again</li>
+</ul>
+
+
+    
+<div class="like-button">
+    <link rel="stylesheet" href="https://api.bencuan.me/public/applause-button.css" />
+    <script src="https://api.bencuan.me/public/applause-button.js"></script>
+    
+    
+    <applause-button style="width: 48px; height: 48px" multiclap="true" color="#ff4faa" api="https://api.bencuan.me" />
+</div>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
+        <ul>
+            
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
+    </footer>
+</div>
+
+
+    
+  </article>
+ 
+      
+      
+      
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#addressing-and-naming">Addressing and Naming</a></li>
+        <li><a href="#conceptual-intro-to-routing">Conceptual Intro to Routing</a>
+          <ul>
+            <li><a href="#forwarding-vs-routing-summary">Forwarding vs Routing: Summary</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#destination-based-forwarding">Destination-Based Forwarding</a>
+      <ul>
+        <li><a href="#forwarding-tables">Forwarding Tables</a></li>
+        <li><a href="#routing-graph-representation">Routing Graph Representation</a></li>
+        <li><a href="#routing-state-validity">Routing State Validity</a>
+          <ul>
+            <li><a href="#validation">Validation</a></li>
+          </ul>
+        </li>
+        <li><a href="#types-of-routers">Types of Routers</a></li>
+      </ul>
+    </li>
+    <li><a href="#intradomain-routing-l2l3">Intradomain Routing (L2/L3)</a>
+      <ul>
+        <li><a href="#least-cost-routing">Least-Cost Routing</a>
+          <ul>
+            <li><a href="#trivial-routes">Trivial Routes</a></li>
+            <li><a href="#static-routes">Static Routes</a></li>
+          </ul>
+        </li>
+        <li><a href="#distance-vector-routing-protocols">Distance-Vector Routing Protocols</a>
+          <ul>
+            <li><a href="#failures-in-d-v">Failures in D-V</a></li>
+          </ul>
+        </li>
+        <li><a href="#link-state-routing">Link-State Routing</a>
+          <ul>
+            <li><a href="#how-does-this-compare-to-distance-vector">How does this compare to distance-vector?</a></li>
+            <li><a href="#sharing-info-globally">Sharing info globally</a></li>
+            <li><a href="#link-state-flooding">Link State Flooding</a></li>
+            <li><a href="#link-state-convergence">Link State Convergence</a></li>
+          </ul>
+        </li>
+        <li><a href="#spanning-tree-protocol">Spanning Tree Protocol</a>
+          <ul>
+            <li><a href="#learning-switches">Learning Switches</a></li>
+            <li><a href="#from-learning-switches-to-spanning-tree">From Learning Switches to Spanning Tree</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

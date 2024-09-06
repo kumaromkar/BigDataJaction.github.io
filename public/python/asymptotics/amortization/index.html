@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52966&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:52966/python/asymptotics/amortization/">
+  <meta property="og:site_name" content="📈 BigData Junction">
+  <meta property="og:title" content="📈 BigData Junction">
+  <meta property="og:description" content="Amortization # [!info] Content Note
+Please read Asymptotic Analysis Basics first. If you don’t, none of this will make any sense!
+Amortization means spreading out.
+Sometimes, an operation takes different amounts of time for different values of $n$. Rather than having to report runtimes for each different case, we can instead average all of them out and report the amortized runtime.
+This is especially good for functions where most actions have a low cost, but a few have a high cost.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="python">
+<title>Amortization | 📈 BigData Junction</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.a861a34b0976720d1504be0c2ee9870137640447a7fcac0c288dc885ce0f9bdb.css" integrity="sha256-qGGjSwl2cg0VBL4MLumHATdkBEen/KwMKI3Ihc4Pm9s=" crossorigin="anonymous">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  
+
+
+
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="Amortization # [!info] Content Note
+Please read Asymptotic Analysis Basics first. If you don&rsquo;t, none of this will make any sense!
+Amortization means spreading out.
+Sometimes, an operation takes different amounts of time for different values of $n$. Rather than having to report runtimes for each different case, we can instead average all of them out and report the amortized runtime.
+This is especially good for functions where most actions have a low cost, but a few have a high cost."
+/>
+<title>
+  📈 BigData Junction
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+
+
+<link rel="shortcut icon" type="image/png"  href="http://localhost:52966//favicon.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<link href="http://localhost:52966/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+
+
+<link href="http://localhost:52966/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+  
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+<script src="http://localhost:52966/quartz/js/darkmode.2f72a6d848d93d4809cd4f2305703fb1.min.js"></script>
+
+
+
+<script src="http://localhost:52966/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+
+
+
+<script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+<script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+
+<script src="http://localhost:52966/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:52966/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:52966/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:52966/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+
+
+
+ 
+<script>
+  const SEARCH_ENABLED =  false 
+  const LATEX_ENABLED =  true 
+  const PRODUCTION =  false 
+  const BASE_URL = "http://localhost:52966/"
+  const fetchData = Promise.all([
+        fetch("http:\/\/localhost:52966\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+          .then(data => data.json())
+          .then(data => ({
+            index: data.index,
+            links: data.links,
+          })),
+        fetch("http:\/\/localhost:52966\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+          .then(data => data.json()),
+      ])
+      .then(([{index, links}, content]) => ({
+        index,
+        links,
+        content,
+      }))
+
+    const render = () => {
+    
+    const siteBaseURL = new URL(BASE_URL);
+    const pathBase = siteBaseURL.pathname;
+    const pathWindow = window.location.pathname;
+    const isHome = pathBase == pathWindow;
+
+    addCopyButtons();
+    
+
+    
+
+    addCollapsibleCallouts();
+    
+
+    
+    initPopover(
+      "http://localhost:52966",
+       true 
+    )
+    
+
+    
+    const footer = document.getElementById("footer")
+    if (footer) {
+      const container = document.getElementById("graph-container")
+      
+      if (!container) return requestAnimationFrame(render)
+      
+      container.textContent = ""
+
+      const drawGlobal = true;
+      drawGraph(
+          "http://localhost:52966",
+          drawGlobal,
+          [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
+          drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+        );
+
+      }
+    
+
+    
+      var els = document.getElementsByClassName("mermaid");
+      if (els.length > 0) {
+        import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+          (obj) => {
+            
+            
+            obj.default.init();
+          }
+        )
+      }
+    
+  }
+
+  const init = (doc = document) => {
+    
+    addCopyButtons();
+    
+
+    addTitleToCodeBlocks();
+    renderMathInElement(doc.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      macros: {
+        '’': "'"
+      },
+      throwOnError : false
+    });
+    
+  };
+</script>
+
+<script>
+  window.Million = {
+    navigate: (url) => (window.location.href = url),
+    prefetch: () => {},
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init()
+    render()
+  })
+</script>
+
+
+</head>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="http://localhost:52966/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<header class="book-header">
+    
+    <label for="menu-control">
+      <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    </label>
+    <h1 id="page-title"><a href="http://localhost:52966/">📈 BigData Junction</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon" class="quartz-search">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <main class="flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<div class="menu-search">
+  <div id="search-icon" class="quartz-search">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+      <title id="title">Search Icon</title>
+      <desc id="desc">Icon to open search</desc>
+      <g class="search-path" fill="none">
+        <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+        <circle cx="8" cy="8" r="7" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-36a3ed262b315ff04085d7b53a448994" class="toggle" checked />
+    <label for="section-36a3ed262b315ff04085d7b53a448994" class="flex justify-between">
+      <a href="/python/" class="book-collapse-toggle ">Python</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Object Oriented Programming</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/inheritance/" class="">Inheritance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/access-control/" class="">Access Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/dynamic-method-selection/" class="">Dynamic Method Selection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/objects/" class="">Java Objects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/generics/" class="">Generic Types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Asymptotics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics/" class="">Asymptotic Analysis Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/amortization/" class="active">Amortization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics-practice/" class="">Asymptotics Practice</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Abstract Data Types</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2805f6370848571b8798d519e9c354a9" class="toggle"  />
+    <label for="section-2805f6370848571b8798d519e9c354a9" class="flex justify-between">
+      <a href="/python/abstract-data-types/collections/" class="book-collapse-toggle ">Collections</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/arrays/" class="">Arrays</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/linked-lists/" class="">Linked Lists</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/sets/" class="">Sets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/stacks-and-queues/" class="">Stacks and Queues</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f2ba402577081742d50fe3e1cde178c1" class="toggle"  />
+    <label for="section-f2ba402577081742d50fe3e1cde178c1" class="flex justify-between">
+      <a href="/python/abstract-data-types/binary-trees/" class="book-collapse-toggle ">Binary Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/balanced-search-structures/" class="">Balanced Search Structures</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/heaps/" class="">Heaps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/tries/" class="">Tries</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/hashing/" class="">Hashing and Hash Tables</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/union-find-disjoint-sets/" class="">Union Find (Disjoint Sets)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/comparables-and-comparators/" class="">Comparables and Comparators</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Algorithms</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-840c6fbe99128235711db7f7aea6e8ea" class="toggle"  />
+    <label for="section-840c6fbe99128235711db7f7aea6e8ea" class="flex justify-between">
+      <a href="/python/algorithms/searching/" class="book-collapse-toggle ">Searching</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/binary-search/" class="">Binary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/breadth-first-search-bfs/" class="">Breadth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/depth-first-search-dfs/" class="">Depth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-15240e0c0d29d00ce3941dfb840ed889" class="toggle"  />
+    <label for="section-15240e0c0d29d00ce3941dfb840ed889" class="flex justify-between">
+      <a href="/python/algorithms/shortest-paths/" class="book-collapse-toggle ">Shortest Paths</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/dijkstras-algorithm/" class="">Dijkstra&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/a-search/" class="">A* Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ebd3f2b246ca70c549a11d8499364c15" class="toggle"  />
+    <label for="section-ebd3f2b246ca70c549a11d8499364c15" class="flex justify-between">
+      <a href="/python/algorithms/minimum-spanning-trees/" class="book-collapse-toggle ">Minimum Spanning Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/kruskals-algorithm/" class="">Kruskal&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/prims-algorithm/" class="">Prim&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/sorting/" class="">Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimax/" class="">Minimax Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Misc. Topics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/more-resources/" class="">More Resources</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/contributing"  target="_blank" rel="noopener">
+        Contribute
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/64bitpandas/notes/issues"  target="_blank" rel="noopener">
+        Feedback
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+    <div class="book-page container">
+      
+
+      
+      
+  <article class="markdown">
+    <h1 class="title">Amortization</h1>
+    
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+  
+  
+
+
+
+
+
+
+<h1 id="amortization">
+  Amortization
+  <a class="anchor" href="#amortization">#</a>
+</h1>
+<blockquote class="info-callout">
+<p> Content Note</p>
+<p>Please read 
+
+
+
+
+
+<a href="/python/asymptotics/asymptotics/"  rel="noopener"
+  class="internal-link" data-src="/python/asymptotics/asymptotics/">Asymptotic Analysis Basics</a> first. If you don&rsquo;t, none of this will make any sense!</p>
+</blockquote>
+<p><strong>Amortization</strong> means <strong>spreading out.</strong></p>
+<p>Sometimes, an operation takes different amounts of time for different values of $n$. Rather than having to report runtimes for each different case, we can instead average all of them out and report the <strong>amortized runtime.</strong></p>
+<p>This is especially good for functions where most actions have a low cost, but a few have a high cost. We&rsquo;ll see an example of this further down the page!</p>
+<h2 id="a-case-study-resizing-arrays">
+  A Case Study: Resizing Arrays
+  <a class="anchor" href="#a-case-study-resizing-arrays">#</a>
+</h2>
+<p>As you probably know, normal Java arrays don&rsquo;t resize. If we create a <code>new int[5]</code> then that array will always have a length of 5.</p>
+<p>But what if we wanted to make an array resize itself every time it reaches capacity? (Like a <code>List</code>!) Let&rsquo;s see what happens when we <strong>add one to the array size:</strong></p>
+<p>First, we have to make a new array with a new size:</p>
+<p>
+
+
+<img src="http://localhost:52966/python/asymptotics/../img/assets/image%20%2816%29.png" width="auto" alt=""  /></p>
+<p>Then, we have to copy over all of the old elements over:</p>
+<p>
+
+
+<img src="http://localhost:52966/python/asymptotics/../img/assets/image%20%2817%29.png" width="auto" alt=""  /></p>
+<p>Finally, we can add in the new element!</p>
+<p>
+
+
+<img src="http://localhost:52966/python/asymptotics/../img/assets/image%20%2819%29.png" width="auto" alt=""  /></p>
+<p><strong>Let&rsquo;s analyze the runtime of this operation.</strong></p>
+<ul>
+<li>A single resizing will take $\Theta(n)$ time.</li>
+<li>Adding a single element will take $\Theta(1)$ time.</li>
+<li>Together, a single operation will take $\Theta(n+1)$ time, which simplifies into  $\Theta(n)$ .</li>
+<li>Since we&rsquo;re doing a n-operation n times, <strong>the end result is a resizing function that is</strong>$\Theta(n^2)$. <strong>We can do better with the power of amortization!</strong></li>
+</ul>
+<h3 id="what-if-we-doubled-the-size-instead-of-adding-one">
+  <strong>What if we doubled the size instead of adding one?</strong>
+  <a class="anchor" href="#what-if-we-doubled-the-size-instead-of-adding-one">#</a>
+</h3>
+<ul>
+<li>A single resizing will take $\Theta(2n)$ time _**_which simplifies into $\Theta(n)$ time.
+<ul>
+<li>We do this every time the array hits a power of 2 (2, 4, 8, 16, 32 &hellip;).</li>
+</ul>
+</li>
+<li>Adding a single element will take $\Theta(1)$ time.
+<ul>
+<li>We do this every time we add a new element, so in all we add n elements. Therefore, this is an
+<ul>
+<li>$\Theta(n)$operation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Therefore, the unsimplified function is:</strong> $\Theta(n + (2 + 4 + 8 &hellip; +2^i))$ where $2^i$ is the largest power of two less than n. This might not seem clear on its own, so let&rsquo;s rewrite it:</p>
+<p>$
+\theta(n + (\frac{n}{2} + \frac{n}{4} + &hellip; + 8 + 4 + 2))
+$</p>
+<p>Intuitively, this looks like this:</p>
+<p>
+
+
+<img src="http://localhost:52966/python/asymptotics/../img/assets/image%20%2839%29.png" width="auto" alt=""  /></p>
+<p>Mathematically, it looks like this:</p>
+<p>$
+n + n\sum_{n=1}^{n}(\frac{1}{2})^n
+$</p>
+<p>Which simplifies to $2n$if you recall your power series properties . <strong>Therefore, this approach is</strong> $\Theta(n)$ <strong>!!</strong></p>
+<p>
+
+
+<img src="http://localhost:52966/python/asymptotics/../img/assets/image%20%28116%29.png" width="auto" alt=""  /></p>
+
+
+    
+<div class="like-button">
+    <link rel="stylesheet" href="https://api.bencuan.me/public/applause-button.css" />
+    <script src="https://api.bencuan.me/public/applause-button.js"></script>
+    
+    
+    <applause-button style="width: 48px; height: 48px" multiclap="true" color="#ff4faa" api="https://api.bencuan.me" />
+</div>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="http://localhost:52966/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
+        <ul>
+            
+            <li><a href="http://localhost:52966/">Home</a></li>
+            <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
+    </footer>
+</div>
+
+
+    
+  </article>
+ 
+      
+      
+      
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#amortization">Amortization</a>
+      <ul>
+        <li><a href="#a-case-study-resizing-arrays">A Case Study: Resizing Arrays</a>
+          <ul>
+            <li><a href="#what-if-we-doubled-the-size-instead-of-adding-one"><strong>What if we doubled the size instead of adding one?</strong></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

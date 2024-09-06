@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Version Control/Git on </title>
+    <link>http://localhost:1313/tst/</link>
+    <description>Recent content in Version Control/Git on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/tst/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chapter 1: OS Basics</title>
+      <link>http://localhost:1313/tst/Chapter-1-OS-Basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-1-OS-Basics/</guid>
+      <description>What is an operating system? # An operating system has three main roles:&#xA;Referee: The OS manages protection, isolation, and allocation of resources between processes. Illusionist: The OS provides an abstraction between hardware and user programs that provides an illusion ****of easy-to-access resources such as files and available processors. Glue: The OS provides common services, sharing, authorization, networking, and communication between processes and external devices. Q1.1. Consider a modern web browser (such as Chrome or Firefox) which plays a similar role to an operating system.</description>
+    </item>
+    <item>
+      <title>Chapter 2: Processes</title>
+      <link>http://localhost:1313/tst/Chapter-2-Processes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-2-Processes/</guid>
+      <description>The Process Abstraction # A process is an execution environment with restricted rights.&#xA;A process consists of:&#xA;An address space Thread(s) of control running in that address space System states associated with threads (files, etc) The process abstraction creates a tradeoff between protection and efficiency: communication is easier within processes, but harder between processes.&#xA;UNIX Process Management # Creating Processes: fork and exec # Forking # In UNIX-based systems, the primary way to create new processes is to fork an existing process.</description>
+    </item>
+    <item>
+      <title>Chapter 3: Threads</title>
+      <link>http://localhost:1313/tst/Chapter-3-Threads/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-3-Threads/</guid>
+      <description>The Thread Abstraction # A thread is a single unique context, or unit of concurrency, for execution that fully describes the program state. A thread consists of a program counter (PC), registers, execution flags, and a stack.&#xA;All threads in the same process share the same code, data, and file access, but each has its own register state and stack. Certain registers hold the context of the thread (such as the stack pointer, heap pointer, or frame pointer).</description>
+    </item>
+    <item>
+      <title>Chapter 4: I/O</title>
+      <link>http://localhost:1313/tst/Chapter-4-I-O/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-4-I-O/</guid>
+      <description>UNIX Abstraction: Everything is a File # A file is a named collection of data in a file system. In the POSIX (Portable Operating System Interface for UNIX) standard, every file includes data (a sequence of bytes) and metadata (such as size, modification time, owner, security, and access control).&#xA;Files are organized into directories, which are folders containing files and other directories. Directories employ hierarchical naming (/path/to/file.txt) to ensure that ever file has a unique identifier.</description>
+    </item>
+    <item>
+      <title>Chapter 5: Synchronization</title>
+      <link>http://localhost:1313/tst/Chapter-5-Synchronization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-5-Synchronization/</guid>
+      <description>Race Conditions and Locks # If two independent threads need to modify and read the same values, there could be multiple outputs depending on the order that the threads run in. How do we resolve this?&#xA;Synchronization deals with coordination among threads and their shared data&#xA;Mutual Exclusion: Only one thread does something at one time (excludes the other threads)&#xA;Subtype of synchronization Critical Section: code that only one thread can execute at once (consequence of mutual exclusion)</description>
+    </item>
+    <item>
+      <title>Chapter 6: Scheduling</title>
+      <link>http://localhost:1313/tst/Chapter-6-Scheduling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-6-Scheduling/</guid>
+      <description>Introduction # When multiple tasks need to be done on a single CPU, we need to figure out a way to distribute the work done by the CPU across all of the tasks.&#xA;At any point there are running, waiting, and blocked threads. A processor&amp;rsquo;s scheduling policy determines how and when threads transition between these states.&#xA;Scheduling Goals # There are three primary goals for an effective scheduling algorithm.</description>
+    </item>
+    <item>
+      <title>Chapter 7: Address Translation</title>
+      <link>http://localhost:1313/tst/Chapter-7-Address-Translation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-7-Address-Translation/</guid>
+      <description>Introduction # Every modern computer has physical memory inside of it, that might look something like this:&#xA;Physical RAM modules typically contain anywhere from 4 to 128GB of memory (well, at the time of writing). However, there are only a few sticks of RAM, and possibly hundreds of processes that need to access them at the same time!&#xA;This is where memory management comes in. This chapter will cover several methods to do so, such as address translation (virtual memory) and paging (breaking memory into chunks).</description>
+    </item>
+    <item>
+      <title>Chapter 8: Caching</title>
+      <link>http://localhost:1313/tst/Chapter-8-Caching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-8-Caching/</guid>
+      <description>Introduction # At this point, we&amp;rsquo;ve solved nearly all of the problems with base and bound memory translation. But there is one major problem left— all of this additional complexity adds lots of memory accesses, which might make things very inefficient! This is where caching comes in.&#xA;Since programs only care about a very small subset of the total information available, if we identify this subset and place it into more local memory, then we can efficiently perform most memory accesses.</description>
+    </item>
+    <item>
+      <title>Chapter 9: File Systems</title>
+      <link>http://localhost:1313/tst/Chapter-9-File-Systems/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Chapter-9-File-Systems/</guid>
+      <description>I/O # Drivers # A computer handles I/O on its end using several mechanisms:&#xA;The bus, a common set of communication wires, carries data transfer transactions between devices. A typical modern bus standard is PCI (Peripheral Component Interconnect), which is a parallel bus that can handle one transaction at a time. One major downside to this is that the bus speed must be set to the slowest connected device. PCI has evolved into PCI-Express, which is a collection of fast serial channels (lanes) in which devices can use as many as necessary to achieve a desired bandwidth.</description>
+    </item>
+    <item>
+      <title>GDB Reference</title>
+      <link>http://localhost:1313/tst/Appendix-A-GDB-foobars/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tst/Appendix-A-GDB-foobars/</guid>
+      <description>Run with args: r &amp;lt;args&amp;gt;&#xA;Breakpoint: b &amp;lt;n&amp;gt;&#xA;Conditional breakpoint: b &amp;lt;n&amp;gt; if &amp;lt;condition&amp;gt; or condition &amp;lt;n&amp;gt; &amp;lt;condition&amp;gt; on existing&#xA;Step into: step or s (si for assembly)&#xA;Step over: next or n (for assembly, ni)&#xA;See all registers: info registers (can also do info frame, info args, info locals)&#xA;View split mode: ctrl+x ctrl+a&#xA;Switch between code and assembly: layout asm, layout src. Ctrl+X A to exit split&#xA;View hex memory: x &amp;lt;name&amp;gt; or x/Nx &amp;lt;name&amp;gt; to view N bytes after name</description>
+    </item>
+  </channel>
+</rss>

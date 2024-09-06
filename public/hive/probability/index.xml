@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Probability on </title>
+    <link>http://localhost:1313/hive/probability/</link>
+    <description>Recent content in Probability on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/hive/probability/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/probability-overview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/probability-overview/</guid>
+      <description>The probability section of this guide will likely never be fully completed, due to the fact that the Prob 140 textbook is such an excellent resource in probability theory. Go read it and do the problems!&#xA;Instead of a full write-up, the pages in this section will typically just link to relevant sections from the textbook. Personally, I found everything I needed to do well in CS70 probability (and much more) here, including examples that are very similar to problems you might see on the homework.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/counting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/counting/</guid>
+      <description>Introduction # If you&amp;rsquo;re reading this, I think it&amp;rsquo;s safe to assume you already know how to count&amp;hellip; (1, 2, 3, whatever) so what&amp;rsquo;s the big deal about counting?&#xA;When we say counting in this context, we mean counting sequences of decisions. For example, we might want to get the total number of ways to choose toppings on a pizza or something.&#xA;There are two main types of problems: those where order matters and those where it doesn&amp;rsquo;t.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/discrete-probability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/discrete-probability/</guid>
+      <description>Probability Basics # http://prob140.org/textbook/content/Chapter_02/00_Calculating_Chances.html&#xA;Adding and subtracting probabilities - Multiplying probabilities: random draws without replacement, conditional probabilities Bayes&amp;rsquo; Rule # Bayes&amp;rsquo; Rule is used to re-express conditional probabilities $P(A|B)$.&#xA;http://prob140.org/textbook/content/Chapter_02/05_Updating_Probabilities.html#bayes-rule&#xA;Random Variables # Probability Spaces # Probability spaces describe all of the possible values of a random variable, and how likely each of those outcomes are.&#xA;http://prob140.org/textbook/content/Chapter_02/00_Calculating_Chances.html&#xA;Equality # Two variables are equal if $X(\omega) = Y(\omega)$ for all $\omega \in \Omega$, where $\Omega$ is a probability space (all possible values).</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/hashing-and-the-union-bound/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/hashing-and-the-union-bound/</guid>
+      <description>A hash function assigns a value to each member in a set. It&amp;rsquo;s often useful to determine the probability of collisions: where two different items are assigned the same hash value.&#xA;http://prob140.org/textbook/content/Chapter_01/03_Collisions_in_Hashing.html&#xA;An interesting result is explored by the Birthday Problem (sometimes known as the Birthday Paradox, despite not actually being paradoxical), in which the probability of at least two people sharing the same birthday is much higher than expected.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/expectation-and-variance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/expectation-and-variance/</guid>
+      <description>The expectation of a random variable, $E(X)$, is the average of possible values weighted by their probabilities. Formally, it can be defined in two ways:&#xA;Domain definition: $E(X) = \sum_{\omega \in \Omega} X(\omega) P(\omega)$. Range definition: $E(X) = \sum_x x P(X = x)$. Expectation has nice properties of linearity: $E(X + Y) = E(X) + E(Y)$ and $E(aX + b) = aE(x) + b$.&#xA;http://prob140.org/textbook/content/Chapter_08/01_Definition.html</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/concentration-inequalities/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/concentration-inequalities/</guid>
+      <description>Also see the Data 102 notes on this topic.&#xA;Markov&amp;rsquo;s Inequality: http://prob140.org/textbook/content/Chapter_18/04_Chi_Squared_Distributions.html&#xA;Chebyshev&amp;rsquo;s Inequality: http://prob140.org/textbook/content/Chapter_18/04_Chi_Squared_Distributions.html&#xA;Chernoff Bound: http://prob140.org/textbook/content/Chapter_19/04_Chernoff_Bound.html?highlight=chernoff</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/continuous-probability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/continuous-probability/</guid>
+      <description> (Credit: Huiyi Zhang)&#xA;All of the continuous probability distributions are deeply connected. Above is a chart describing some of their relationships.&#xA;Below are some links:&#xA;Poisson Beta Exponential Normal Gamma Chi-Squared </description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/markov-chains/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/markov-chains/</guid>
+      <description>Markov Chains are a type of stochastic process (a collection of random variables that evolves over time) that satisfy the Markov property (the future state $n+1$ only depends on the current state $n$, and not any of the past states).&#xA;Markov chains are often used to model transitions between discrete states.&#xA;http://prob140.org/textbook/content/Chapter_10/00_Markov_Chains.html</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/the-beta-family/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/the-beta-family/</guid>
+      <description>The Beta distribution is a family of continuous distributions on [0,1] with two parameters (commonly known as $\alpha$ and $\beta$, but also $r$ and $s$).&#xA;Beta distributions are commonly used in situations where we want to continually update a prior distribution given new information.&#xA;The beta (1,1) distribution is identical to the uniform distribution. http://prob140.org/textbook/content/Chapter_21/00_The_Beta_and_the_Binomial.html</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/hive/probability/conditional-expectation-and-variance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/hive/probability/conditional-expectation-and-variance/</guid>
+      <description>Properties:&#xA;Conditional Expectation # $E(X|Y)$is the conditional expectation of $X$given $Y$&#xA;$E(X|Y=y)$is a fixed value, but $E(X|Y)$is a random variable (it is a function of $Y$) Iterated expectation: $E(E(X|Y)) = E(X)$ Additivity: $E(Y+Z | X) = E(Y|X) + E(Z|X)$ does not work on the right hand side: $E(Y | X+Z) \ne E(Y|X) + E(Y|Z)$ Linearity: $E(aX + b | Y) = aE(X|Y) + b$ Conditioning on the same variable: $E(g(S)T | S) = g(S)E(T|S)$ Conditional Variance # If $Var(Y)$is difficult to find directly, we can use the variance decomposition to condition the variance on another variable.</description>
+    </item>
+  </channel>
+</rss>

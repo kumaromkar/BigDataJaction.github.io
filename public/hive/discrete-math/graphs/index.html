@@ -1,0 +1,3221 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/hive/discrete-math/graphs/">
+  <meta property="og:site_name" content="📈 BigData Junction">
+  <meta property="og:title" content="📈 BigData Junction">
+  <meta property="og:description" content="[!info] Content Note
+This is a second introduction to graphs that assumes you’ve at least seen them before. Take a look at the 61B version if you feel lost!
+What’s a graph? # Formally, a graph is a set of vertices with a set of edges connecting them. A graph can be defined as $G = (V, E)$ where $V = {A, B, \cdots V_n}$ and $E = {{A, B}, {B, C} \cdots }$">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="hive">
+    <meta property="article:modified_time" content="2024-06-16T16:12:02+05:30">
+<title>Graphs | 📈 BigData Junction</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.a861a34b0976720d1504be0c2ee9870137640447a7fcac0c288dc885ce0f9bdb.css" integrity="sha256-qGGjSwl2cg0VBL4MLumHATdkBEen/KwMKI3Ihc4Pm9s=" crossorigin="anonymous">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  
+
+
+
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="[!info] Content Note
+This is a second introduction to graphs that assumes you&rsquo;ve at least seen them before. Take a look at the 61B version if you feel lost!
+What&rsquo;s a graph? # Formally, a graph is a set of vertices with a set of edges connecting them. A graph can be defined as $G = (V, E)$ where $V = {A, B, \cdots V_n}$ and $E = {{A, B}, {B, C} \cdots }$"
+/>
+<title>
+  📈 BigData Junction
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+
+
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+
+
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+  
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
+
+
+
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+
+
+
+<script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+<script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+
+
+
+ 
+<script>
+  const SEARCH_ENABLED =  false 
+  const LATEX_ENABLED =  true 
+  const PRODUCTION =  false 
+  const BASE_URL = "http://localhost:1313/"
+  const fetchData = Promise.all([
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+          .then(data => data.json())
+          .then(data => ({
+            index: data.index,
+            links: data.links,
+          })),
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+          .then(data => data.json()),
+      ])
+      .then(([{index, links}, content]) => ({
+        index,
+        links,
+        content,
+      }))
+
+    const render = () => {
+    
+    const siteBaseURL = new URL(BASE_URL);
+    const pathBase = siteBaseURL.pathname;
+    const pathWindow = window.location.pathname;
+    const isHome = pathBase == pathWindow;
+
+    addCopyButtons();
+    
+
+    
+
+    addCollapsibleCallouts();
+    
+
+    
+    initPopover(
+      "http://localhost:1313",
+       true 
+    )
+    
+
+    
+    const footer = document.getElementById("footer")
+    if (footer) {
+      const container = document.getElementById("graph-container")
+      
+      if (!container) return requestAnimationFrame(render)
+      
+      container.textContent = ""
+
+      const drawGlobal = true;
+      drawGraph(
+          "http://localhost:1313",
+          drawGlobal,
+          [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
+          drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+        );
+
+      }
+    
+
+    
+      var els = document.getElementsByClassName("mermaid");
+      if (els.length > 0) {
+        import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+          (obj) => {
+            
+            
+            obj.default.init();
+          }
+        )
+      }
+    
+  }
+
+  const init = (doc = document) => {
+    
+    addCopyButtons();
+    
+
+    addTitleToCodeBlocks();
+    renderMathInElement(doc.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      macros: {
+        '’': "'"
+      },
+      throwOnError : false
+    });
+    
+  };
+</script>
+
+<script>
+  window.Million = {
+    navigate: (url) => (window.location.href = url),
+    prefetch: () => {},
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init()
+    render()
+  })
+</script>
+
+
+</head>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<header class="book-header">
+    
+    <label for="menu-control">
+      <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    </label>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon" class="quartz-search">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <main class="flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<div class="menu-search">
+  <div id="search-icon" class="quartz-search">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+      <title id="title">Search Icon</title>
+      <desc id="desc">Icon to open search</desc>
+      <g class="search-path" fill="none">
+        <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+        <circle cx="8" cy="8" r="7" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-36a3ed262b315ff04085d7b53a448994" class="toggle"  />
+    <label for="section-36a3ed262b315ff04085d7b53a448994" class="flex justify-between">
+      <a href="/python/" class="book-collapse-toggle ">Python</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Object Oriented Programming</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/inheritance/" class="">Inheritance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/access-control/" class="">Access Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/dynamic-method-selection/" class="">Dynamic Method Selection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/objects/" class="">Java Objects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/generics/" class="">Generic Types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Asymptotics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics/" class="">Asymptotic Analysis Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/amortization/" class="">Amortization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics-practice/" class="">Asymptotics Practice</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Abstract Data Types</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2805f6370848571b8798d519e9c354a9" class="toggle"  />
+    <label for="section-2805f6370848571b8798d519e9c354a9" class="flex justify-between">
+      <a href="/python/abstract-data-types/collections/" class="book-collapse-toggle ">Collections</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/arrays/" class="">Arrays</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/linked-lists/" class="">Linked Lists</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/sets/" class="">Sets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/stacks-and-queues/" class="">Stacks and Queues</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f2ba402577081742d50fe3e1cde178c1" class="toggle"  />
+    <label for="section-f2ba402577081742d50fe3e1cde178c1" class="flex justify-between">
+      <a href="/python/abstract-data-types/binary-trees/" class="book-collapse-toggle ">Binary Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/balanced-search-structures/" class="">Balanced Search Structures</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/heaps/" class="">Heaps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/tries/" class="">Tries</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/hashing/" class="">Hashing and Hash Tables</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/union-find-disjoint-sets/" class="">Union Find (Disjoint Sets)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/comparables-and-comparators/" class="">Comparables and Comparators</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Algorithms</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-840c6fbe99128235711db7f7aea6e8ea" class="toggle"  />
+    <label for="section-840c6fbe99128235711db7f7aea6e8ea" class="flex justify-between">
+      <a href="/python/algorithms/searching/" class="book-collapse-toggle ">Searching</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/binary-search/" class="">Binary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/breadth-first-search-bfs/" class="">Breadth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/depth-first-search-dfs/" class="">Depth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-15240e0c0d29d00ce3941dfb840ed889" class="toggle"  />
+    <label for="section-15240e0c0d29d00ce3941dfb840ed889" class="flex justify-between">
+      <a href="/python/algorithms/shortest-paths/" class="book-collapse-toggle ">Shortest Paths</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/dijkstras-algorithm/" class="">Dijkstra&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/a-search/" class="">A* Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ebd3f2b246ca70c549a11d8499364c15" class="toggle"  />
+    <label for="section-ebd3f2b246ca70c549a11d8499364c15" class="flex justify-between">
+      <a href="/python/algorithms/minimum-spanning-trees/" class="book-collapse-toggle ">Minimum Spanning Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/kruskals-algorithm/" class="">Kruskal&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/prims-algorithm/" class="">Prim&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/sorting/" class="">Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimax/" class="">Minimax Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Misc. Topics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/more-resources/" class="">More Resources</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8eaa952c883657ff0fde6609f1afb6ac" class="toggle"  />
+    <label for="section-8eaa952c883657ff0fde6609f1afb6ac" class="flex justify-between">
+      <a href="/sql/" class="book-collapse-toggle ">SQL</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2cb61b7535210994a46f35adee41bda7" class="toggle"  />
+    <label for="section-2cb61b7535210994a46f35adee41bda7" class="flex justify-between">
+      <a href="/hadoop/" class="book-collapse-toggle ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f6ae2f239b12d2df8093c89b05eba5b9" class="toggle" checked />
+    <label for="section-f6ae2f239b12d2df8093c89b05eba5b9" class="flex justify-between">
+      <a href="/hive/" class="book-collapse-toggle ">Hive</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/graphs/" class="active">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2602ae26ced6eeaf33acf65208f5d2ab" class="toggle"  />
+    <label for="section-2602ae26ced6eeaf33acf65208f5d2ab" class="flex justify-between">
+      <a href="/databases/" class="book-collapse-toggle ">Databases</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f848154d2659534e47b8b735c6a1aa4d" class="toggle"  />
+    <label for="section-f848154d2659534e47b8b735c6a1aa4d" class="flex justify-between">
+      <a href="/pyspark/" class="book-collapse-toggle ">Pyspark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-463481d181ee2ba85d46b84df8b4ee12" class="toggle"  />
+    <label for="section-463481d181ee2ba85d46b84df8b4ee12" class="flex justify-between">
+      <a href="/airflow/" class="book-collapse-toggle ">Airflow</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/resources/" class="">Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/midterm-tips/" class="">Midterm Tips</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c9e3e16db5c81a42de0a79d6b6abba50" class="toggle"  />
+    <label for="section-c9e3e16db5c81a42de0a79d6b6abba50" class="flex justify-between">
+      <a href="/warehousing/" class="book-collapse-toggle ">Data Warehousing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/binary-decision-making/" class="">Binary Decision Making</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/hypothesis-testing/" class="">Hypothesis Testing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/decision-theory/" class="">Decision Theory</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/parameter-estimation/" class="">Parameter Estimation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/sampling/" class="">Sampling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/regression-and-glms/" class="">Regression and GLMs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/nonparametric-methods/" class="">Nonparametric Methods</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/interpretability/" class="">Interpretability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/causality/" class="">Causality</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/bandits/" class="">Bandits</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Markov-Decision-Processes/" class="">Markov Decision Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Reinforcement-Learning/" class="">Reinforcement Learning</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d841c4a4c551bb4e21d460836d4142" class="toggle"  />
+    <label for="section-86d841c4a4c551bb4e21d460836d4142" class="flex justify-between">
+      <a href="/spark/" class="book-collapse-toggle ">Spark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intro-to-the-internet/" class="">Intro to the Internet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/cli/" class="">CLI Tools</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intradomain-routing/" class="">Introduction to Routing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/measuring-link-performance/" class="">Measuring Link Performance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/resource-sharing-packet-and-circuit-switching/" class="">Resource Sharing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/internet-organization-and-layers/" class="">Internet Organization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/sockets-and-ports/" class="">Sockets and Ports</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/addressing-ip/" class="">Addressing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/interdomain-routing-bgp/" class="">Interdomain Routing (BGP)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/TCP/" class="">TCP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/reliability/" class="">Reliability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/congestion-control/" class="">Congestion Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/dns/" class="">DNS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/web/" class="">Web</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/ethernet/" class="">Ethernet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/end-to-end-operation/" class="">End to End Operation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/final-review/" class="">Final Review</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="toggle"  />
+    <label for="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="flex justify-between">
+      <a href="/git/" class="book-collapse-toggle ">Version Control-Git</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-1-OS-Basics/" class="">Chapter 1: OS Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-2-Processes/" class="">Chapter 2: Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-3-Threads/" class="">Chapter 3: Threads</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-4-I-O/" class="">Chapter 4: I/O</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-5-Synchronization/" class="">Chapter 5: Synchronization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-6-Scheduling/" class="">Chapter 6: Scheduling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-7-Address-Translation/" class="">Chapter 7: Address Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-8-Caching/" class="">Chapter 8: Caching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-9-File-Systems/" class="">Chapter 9: File Systems</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Appendix-A-GDB-foobars/" class="">GDB Reference</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/contributing"  target="_blank" rel="noopener">
+        Contribute
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/64bitpandas/notes/issues"  target="_blank" rel="noopener">
+        Feedback
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+    <div class="book-page container">
+      
+
+      
+      
+  <article class="markdown">
+    <h1 class="title">Graphs</h1>
+    
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+  
+  
+
+
+
+
+
+
+<blockquote class="info-callout">
+<p> Content Note</p>
+<p>This is a second introduction to graphs that assumes you&rsquo;ve at least seen them before. Take a look at the 
+
+
+
+
+
+<a  rel="noopener"
+  class="internal-link broken" data-src="/cs61b/abstract-data-types/graphs">61B version</a> if you feel lost!</p>
+</blockquote>
+<h2 id="whats-a-graph">
+  What&rsquo;s a graph?
+  <a class="anchor" href="#whats-a-graph">#</a>
+</h2>
+<p>Formally, a graph is a <strong>set of vertices with a set of edges connecting them.</strong> A graph can be defined as $G = (V, E)$ where $V = {A, B, \cdots V_n}$ and $E = {{A, B}, {B, C} \cdots }$</p>
+<p>For an <strong>ordered graph</strong> where vertices are numbered, $E$could be represented as a set of ordered pairs instead: $E = {(A, B), (B, C) \cdots }$</p>
+<p>(Insert image of graph)</p>
+<h3 id="concepts-and-definitions">
+  Concepts and Definitions
+  <a class="anchor" href="#concepts-and-definitions">#</a>
+</h3>
+<p>A <strong>neighbor</strong> of a vertex is another vertex that is next to the original vertex. Formally u is a neighbor of v if ${u, v} \in E$.</p>
+<p>An edge is <strong>incident</strong> to the two vertices that it connects</p>
+<p>The <strong>degree</strong> of a vertex is the number of other vertices neighboring. If the graph is directed, the degree can be split into the <strong>in-degree</strong> (number of incoming connections) and the <strong>out-degree</strong> (number of outgoing connections).</p>
+<ul>
+<li>The sum of vertex degrees is equal to $2 |E|$.
+<ul>
+<li>Proof: Count the number of incidences. Each edge is incident to exactly two vertices, so the total number of edge-vertex incidences is $2|E|$(i.e. two times the number of edges).</li>
+<li>The degree can also be defined as the number of incidences corresponding to a particular vertex v. Therefore, the total incidences is the sum of all degrees for all vertices!</li>
+</ul>
+</li>
+</ul>
+<p>A <strong>path</strong> is a sequence of edges. These edges must be connected, i.e. a path could be $(v_1, v_2), (v_2, v_3), (v_3, v_4)$.</p>
+<ul>
+<li>If there are $k$vertices, then a path should have $k-1$edges!</li>
+</ul>
+<p>A <strong>cycle</strong> is a special path that begins and ends on the same vertex.</p>
+<ul>
+<li>Unlike a noncyclic path, there should be the same number of vertices as edges in a cycle.</li>
+</ul>
+<p>A <strong>walk</strong> is a sequence of edges that could possibly repeat a vertex or edge.</p>
+<p>A <strong>tour</strong> is a walk that starts and ends on the same vertex. Additionally, it cannot have any repeated edges.</p>
+<ul>
+<li>An <strong>Eulerian walk</strong> is a walk that uses <strong>every edge</strong> exactly once.
+<ul>
+<li>Doesn&rsquo;t require all vertices to be connected! There could be an isolated vertex with 0 degree.</li>
+</ul>
+</li>
+<li>An <strong>Eulerian tour</strong> is a tour that visits <strong>every edge</strong> in a graph exactly once**.**
+<ul>
+<li>Theorem: any undirected graph has an Eulerian tour if and only if all vertices have <strong>even degree</strong> and is connected.</li>
+<li>Proof: You need to use two incident edges every time you visit a node (to enter and leave). So when you enter, you need another edge to be able to leave! If a vertex has an odd number of edges, then you get stuck on that vertex with nowhere to go once you visit it.</li>
+</ul>
+</li>
+</ul>
+<p>Here&rsquo;s a handy summary, adapted from an explanation by 
+<a href="https://github.com/dstnluong" rel="noopener">Dustin Luong</a>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>end anywhere</th>
+<th>start = end</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>repeated vertices ok</td>
+<td>walk</td>
+<td>tour*</td>
+</tr>
+<tr>
+<td>repeated vertices not ok</td>
+<td>path</td>
+<td>cycle*</td>
+</tr>
+</tbody>
+</table>
+<p>*Eulerian if it uses each edge exactly once.</p>
+<p>Two vertices $u$and $v$are <strong>connected</strong> if there exists a <strong>path</strong> between them.</p>
+<ul>
+<li>If all vertices are connected, then the graph is considered a <strong>connected graph.</strong></li>
+</ul>
+<p>A <strong>complete graph</strong> is a graph where every vertex is connected to every other vertex by exactly one edge. Complete graphs have some nice properties:</p>
+<ul>
+<li>Every vertex is incident to $n-1$edges (if there are $n$total vertices).</li>
+<li>The sum of all degrees is $n(n-1)$.</li>
+</ul>
+<p>A <strong>tree</strong> is kind of like the opposite of a complete graph in that it has the <strong>minimum number of edges</strong> in order to ensure all vertices are connected ($v-1$ total edges). Here are some properties of trees, from a graph perspective (If you aren&rsquo;t already familiar with the recursive definition of trees, head over to the 
+<a href="https://cs61b.bencuan.me/abstract-data-types/binary-trees" rel="noopener">61B guide</a> first to brush up on it!)</p>
+<ul>
+<li>Trees are <strong>acyclic</strong> and <strong>connected.</strong></li>
+<li><strong>Leaves</strong> are vertices that have degree 1.</li>
+<li>In a tree in which each parent node has 2 children, the <strong>root</strong> is a single vertex that has degree 2 and <strong>non-leaf vertices</strong> have degree 3.</li>
+</ul>
+<h2 id="hypercubes">
+  Hypercubes
+  <a class="anchor" href="#hypercubes">#</a>
+</h2>
+<p>A <strong>hypercube</strong> is a specific class of graphs that have highly connected vertices. In order to understand them better, let&rsquo;s start building some up:</p>
+<p>Every hypercube has a dimension $n$. A 1-dimensional hypercube is simply a line (2 vertices connected by 1 edge). Not too exciting:</p>
+<p>A 2-dimensional hypercube is a square (4 vertices connected by 4 edges). Still pretty familiar:</p>
+<p>A 3-dimensional hypercube is a cube (8 vertices, 12 edges):</p>
+<p>Now, let&rsquo;s get to the interesting stuff. How do we construct a 4-dimensional hypercube?? Well, let&rsquo;s figure out how we went from 2 to 3- we essentially <strong>duplicated</strong> the existing hypercube, then <strong>connected corresponding vertices</strong> (ones that are in the same relative position):</p>
+<p>If we do this again for the 3-dimensional hypercube, we&rsquo;ll get this 4-dimensional hypercube, which has 16 vertices and 32 edges:</p>
+<p>You might have noticed a pattern in how many vertices and edges a hypercube has. Here are those properties stated more formally:</p>
+<ul>
+<li>A hypercube has $2^n$vertices.</li>
+<li>A hypercube has $n2^{n-1}$edges.</li>
+</ul>
+<p>Hypercubes are super useful, particularly for representing <strong>bit strings.</strong> If we have an $n$-dimensional hypercube, then we have enough vertices to represent all possible permutations of 1&rsquo;s and 0&rsquo;s of length $n$. Every edge would then represent the act of flipping exactly one bit.</p>
+<h2 id="planar-graphs">
+  Planar Graphs
+  <a class="anchor" href="#planar-graphs">#</a>
+</h2>
+<p>A <strong>planar graph</strong> is a graph that can be drawn without having two edges overlap.</p>
+<p><strong>Euler&rsquo;s Formula</strong> states that a connected planar graph has two more vertices and faces than the number of edges:</p>
+<p>$
+v + f = e + 2
+$</p>
+<p>Let&rsquo;s take a look at some examples to convince ourselves of how this works:</p>
+<p>(A triangle has 3 edges and two faces: the inner face and outer face.)</p>
+<p>(This shape is connected, but there is no enclosed face so the only face is the outer face.)</p>
+<p>Another consequence of Euler&rsquo;s Formula is the inequality that holds for connected planar graphs:</p>
+<p>$
+3f \le 2e
+$</p>
+<p>This inequality states that any planar graph with 2 or more vertices must have at most 3 faces for every 2 edges. We know this because the smallest possible face is a triangle. If we plug this into Euler&rsquo;s Formula, we can eliminate one variable to get $e \le 3v - 6$. This makes it much easier to figure out if a graph is planar or not, since faces are often difficult to count.</p>
+<h3 id="proof-of-eulers-formula">
+  Proof of Euler&rsquo;s Formula
+  <a class="anchor" href="#proof-of-eulers-formula">#</a>
+</h3>
+<p>Let&rsquo;s use induction!</p>
+<p><strong>Base Case:</strong> Let there be 0 edges and 1 vertex. This means there&rsquo;s only 1 (outer) face as well. In this case, $v + f = 1 + 1 = 0 + 2$. This works!</p>
+<p><strong>Induction Step:</strong> <br>
+Let&rsquo;s consider the case of a tree. Then, we know that there are always 1 fewer edges than vertices, and only one face:<br>
+$v + 1 = (v-1) + 2$ works!</p>
+<p>What about something that&rsquo;s not a tree? Well, things get a bit tricker here.</p>
+<ul>
+<li>Let&rsquo;s consider a graph:</li>
+<li>Now, let&rsquo;s start with the tree corresponding to the same number of vertices as the original:</li>
+<li>Now, we&rsquo;ll keep adding edges to enclose faces until we reach the number of edges in the original:</li>
+<li>We&rsquo;ll notice here that for every edge we add, a new face is created!</li>
+<li>Therefore, we can plug this fact into our inductive hypothesis (that Euler&rsquo;s formula works) to get $v + (f+1) = (e+1) + 2$.</li>
+</ul>
+<h3 id="nonplanar-graphs">
+  Nonplanar Graphs
+  <a class="anchor" href="#nonplanar-graphs">#</a>
+</h3>
+<p>Although nonplanar graphs don&rsquo;t share many of the nice properties planar graphs do, they&rsquo;re often more accurate representations of real life. They can also be used frequently in proofs to prove that a graph must either be planar or non-planar.</p>
+<p>There are two famous non-planar graphs that are worth taking a look into:</p>
+<p>
+
+
+<img src="http://localhost:1313/hive/discrete-math/../img/assets/nonplanar.png" width="auto" alt="nonplanar graphs"  /></p>
+<h4 id="k33">
+  K3,3
+  <a class="anchor" href="#k33">#</a>
+</h4>
+<p>$K_{3,3}$is also known as the &ldquo;utility graph&rdquo; because of its connection to a popular puzzle: given 3 houses and 3 utilities (water, gas, electric), how can we draw a line connecting each house to every utility without having any of the lines cross?</p>
+<p>I&rsquo;ll save you an amount of suffering by spoiling the answer: <strong>this is an impossible task when done on a standard (planar) paper.</strong> (Want topical entertainment? 
+<a href="https://www.youtube.com/watch?v=VvCytJvd4H0" rel="noopener">Watch some youtubers solve this problem on a mug.</a>) This is because $K_{3,3}$is <strong>non-planar</strong>, so by definition at least one of the lines has to cross!</p>
+<p>$K_{3,3}$is a <strong>bipartite graph</strong> since it has two groups of 3 vertices; and within each group, none of the vertices are directly connected to one another.</p>
+<h4 id="k5">
+  K5
+  <a class="anchor" href="#k5">#</a>
+</h4>
+<p>$K_5$is the <strong>complete graph</strong> of 5 vertices. (This means that each vertex is connected to every other vertex.)</p>
+<p>We can see that $K_5$has 5 vertices and 10 edges. Since we know that all planar graphs have $E \le 3V - 6$, we can show that $K_5$certainly isn&rsquo;t planar (since 10 is greater than 3(5)).</p>
+<p>A striking fact: <strong>ALL non-planar graphs contain either</strong> $K_5$<strong>or</strong> $K_{3,3}$<strong>!</strong> This means that you can prove that a graph is either planar or nonplanar simply by showing that either of these component graphs can or cannot exist in a larger graph.</p>
+<h2 id="graph-coloring">
+  Graph Coloring
+  <a class="anchor" href="#graph-coloring">#</a>
+</h2>
+<p>A <strong>graph coloring</strong> assigns a color to each vertex such that <strong>every edge has two different colors</strong> on its two endpoints:</p>
+<p>Often, we would like to figure out the <strong>minimum number of colors</strong> (categories) it takes to properly color a graph. This could have many uses, from 
+<a href="https://en.wikipedia.org/wiki/Register%5c_allocation" rel="noopener">register allocation</a> to 
+<a href="https://medium.com/code-science/sudoku-solver-graph-coloring-8f1b4df47072" rel="noopener">solving sudoku puzzles</a>.</p>
+<h3 id="six-color-theorem">
+  Six Color Theorem
+  <a class="anchor" href="#six-color-theorem">#</a>
+</h3>
+<p>Let&rsquo;s propose that every <strong>planar</strong> graph can be colored with 6 colors or less.</p>
+<p>From Euler&rsquo;s Formula, recall that $e \le 3v - 6$for any planar graph with more than 2 vertices. We also know that the degree of the graph is equal to $2e$.</p>
+<p>So, the average degree of any given vertex is $\frac{2e}{v} \le \frac{2(3v-6)}{v} \le 6 - \frac{12}{v}$. This proves that there <strong>exists</strong> a vertex with degree at most 5 (due to the property of averages). Let&rsquo;s try removing this vertex and see what happens.</p>
+<p>Well, now each of the 5 neighbors each are assigned a different color. If we add the vertex back, then it can assume the 6th color. We can use this proof inductively to show that adding any vertex will result in the same thing occurring.</p>
+<h3 id="five-and-four-color-theorem">
+  Five and Four Color Theorem
+  <a class="anchor" href="#five-and-four-color-theorem">#</a>
+</h3>
+<p>It turns out that 6 is actually not the tightest bound we can put on the number of colors needed! It is possible to color all <strong>vertices</strong> with <strong>5 colors</strong> or less and all <strong>faces</strong> with <strong>4 colors</strong> or less in a <strong>planar graph</strong>. I won&rsquo;t go into the details of these proofs here, but check out the bottom of 
+<a href="https://www.eecs70.org/assets/pdf/notes/n5.pdf" rel="noopener">Note 5</a> for the proof of the 5 color theorem, and 
+<a href="https://en.wikipedia.org/wiki/Four_color_theorem" rel="noopener">Wikipedia</a> has a good introduction to the (highly technical) 4 color theorem proof.</p>
+
+
+    
+<div class="like-button">
+    <link rel="stylesheet" href="https://api.bencuan.me/public/applause-button.css" />
+    <script src="https://api.bencuan.me/public/applause-button.js"></script>
+    
+    
+    <applause-button style="width: 48px; height: 48px" multiclap="true" color="#ff4faa" api="https://api.bencuan.me" />
+</div>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
+        <ul>
+            
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
+    </footer>
+</div>
+
+
+    
+  </article>
+ 
+      
+      
+      
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#whats-a-graph">What&rsquo;s a graph?</a>
+          <ul>
+            <li><a href="#concepts-and-definitions">Concepts and Definitions</a></li>
+          </ul>
+        </li>
+        <li><a href="#hypercubes">Hypercubes</a></li>
+        <li><a href="#planar-graphs">Planar Graphs</a>
+          <ul>
+            <li><a href="#proof-of-eulers-formula">Proof of Euler&rsquo;s Formula</a></li>
+            <li><a href="#nonplanar-graphs">Nonplanar Graphs</a></li>
+          </ul>
+        </li>
+        <li><a href="#graph-coloring">Graph Coloring</a>
+          <ul>
+            <li><a href="#six-color-theorem">Six Color Theorem</a></li>
+            <li><a href="#five-and-four-color-theorem">Five and Four Color Theorem</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

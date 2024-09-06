@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Warehousing on </title>
+    <link>http://localhost:1313/warehousing/</link>
+    <description>Recent content in Data Warehousing on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/warehousing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/binary-decision-making/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/binary-decision-making/</guid>
+      <description>Binary Decision Making is the simplest kind of decision we can make: 1 or 0, yes or now, true or false&amp;hellip;&#xA;Setup # In reality, a value is either 0 or 1. However, we observe noisy data that isn&amp;rsquo;t always 100% accurate. Given this noisy data, we make a decision (also either 0 or 1).&#xA;Some examples of binary decisions are:&#xA;COVID testing (positive or negative) Fraud detection (fraud or no fraud) Confusion Matrix # A 2x2 table that helps us evaluate how effective our predictions were (columns) given reality (rows).</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/hypothesis-testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/hypothesis-testing/</guid>
+      <description>Hypothesis Testing # Hypothesis testing is a form of [[binary decision making]] (do we accept or reject the null hypothesis?).&#xA;Formulate null hypothesis, alternate hypothesis, and test statistic Compute value of test statistic based on data Simulate test statistic under null hypothesis many times Compare results to determine likelihood of result As an example of how this relates to binary decision making:&#xA;Null hypothesis true: reality = 0 Alternative hypothesis true: reality = 1 Fail to reject null: decision = 0 Reject null: decision = 1 So if the null hypothesis is actually true but we end up rejecting it, then a false positive result has occurred.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/decision-theory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/decision-theory/</guid>
+      <description>So far, in [[binary decision making]] and [[hypothesis testing]], we&amp;rsquo;ve explored how to make as few mistakes as possible when making binary predictions.&#xA;Intro to Decision Theory # We can generalize a decision problem to the following:&#xA;Suppose there is some unknown quantity of interest $\theta$. $\theta$ is random under a Bayesian approach, and fixed if frequentist. We collect/observe some data $X$. There is some true distribution that the data is drawn from, $p(X | \theta)$.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/parameter-estimation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/parameter-estimation/</guid>
+      <description>Suppose we observe $n$ data points ($x_1$ to $x_n$). Let $\theta$ be some unknown parameter that describes the distribution the data points were sampled from.&#xA;As an example, let&amp;rsquo;s say we are trying to quantify how good a product is based on how many positive and negative reviews it has.&#xA;This means that data $x_i$ is either $0$ (bad review) or $1$ (good review) Let $p(x_i | \theta) = \theta^{x_i} (1-\theta)^{1-x_i}$.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/sampling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/sampling/</guid>
+      <description>Intro # In practice, getting the exact probability of an inference is not required as long as we get a rough estimate (80% chance is basically the same as 80.15%, etc.).&#xA;In order to cut down on the resources required to make inferences from a Bayes Net, we can use sampling techniques to approximate the true probability of a query.&#xA;Prior Sampling # For all $i$ in topological order , sample $X_i$ from the CPT of $P(X_i | parents(X_i))$.</description>
+    </item>
+    <item>
+      <title>Regression and GLMs</title>
+      <link>http://localhost:1313/warehousing/regression-and-glms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/regression-and-glms/</guid>
+      <description>Posterior Predictive Distribution # Posterior Predictive Distribution: &amp;ldquo;if we saw some data, what future data might we expect?&amp;rdquo;&#xA;$P(x_{n+1}|x_1,\cdots,x_n)$ = $\int P(x_{n+1}|\theta)P(\theta|x_1,\cdots,x_n)d\theta$ $= E_{\theta|X}(P(x_{n+1}|\theta))$, which is an average with respect to the posterior. In practice, the posterior component is estimated.&#xA;Linear Regression # $$Y = X\beta + \epsilon$$ where $Y$ is a $n \times 1$ vector, $X$ is a $n \times d$ matrix,&#xA;$Y$ is unknown and fixed, $X$ is known and fixed, $\epsilon$ is unknown and random (sampled from i.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/nonparametric-methods/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/nonparametric-methods/</guid>
+      <description>What does nonparametric mean? # Nonparametric methods make no assumptions about the distribution of the data or parameters; the null hypothesis is solely generated based on the data.&#xA;In some other contexts, the number of parameters in a nonparametric method is either infinite or grows with the number of data points.&#xA;Supposing the true state of the world is $\theta$ and our data is $x$, parametric/forward models attempt to make some assumptions about $\theta$ that make us most likely to see the data $x$.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/interpretability/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/interpretability/</guid>
+      <description>What do we look for in predictions? # Accuracy: We want predictions to be close to the true values. Simplicity: We want the model to be easy to understand and trust. Interpretability: We want to be able to explain why the model behaved the way it did.&#xA;Components of interpretability # What is it?&#xA;transparency: understanding the model explanations: understanding the predictions When and why do we care?&#xA;high stakes decisions have major impacts, and need to be understood regulations such as GDPR requires explanations for algorithms What do we get from interpretability?</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/causality/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/causality/</guid>
+      <description>Prediction vs Causality # Prediction: using $X$ data, can we guess what $y$ will be?&#xA;Causation: does X cause y to change?&#xA;Affects decisions Typically established via randomized experiments Case Studies in Causality # Confounding Factor # A Martian comes to Earth and observes that people using umbrellas have a higher probability of getting wet than people who do not. They infer that using an umbrella causes people to get wet.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/concentration-inequalities/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/concentration-inequalities/</guid>
+      <description>The goal of concentration inequalities is to provide bounds on the probability of a random variable taking values in its tail (regions farthest away from the mean).&#xA;This is especially useful when we don&amp;rsquo;t know the distribution of a random variable, or we have a combination of other random variables (sample mean, quicksort, multi-arm bandit&amp;hellip;).&#xA;Markov&amp;rsquo;s Inequality # If $X$ is a non-negative random variable with expectation $\mu$, then $$P(X \ge t) \le \frac{\mu}{t}$$</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/bandits/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/bandits/</guid>
+      <description>Main idea: making repeated decisions based on feedback, factoring in the tradeoff between exploring new decisions or keeping existing good decisions&#xA;Multi-Armed Bandit Framework # The Multi-Armed bandit problem arises when the following are true:&#xA;We need to get the data as a part of the process Exploration/exploitation tradeoff (both have a cost) Stochastic: rewards are random Setup:&#xA;Selection rounds $1, \cdots, T$ Arms (choices) $1, \cdots, K$ $P_i$: reward distribution for arm $i$ $\mu_i$: mean reward for $P_i$ distribution At each round $t$, choose an arm $A_t$ such that a reward $X_t \sim P_{A_t}$ is procured Define pseudo-regret at time $T$ as $\bar R_t = \sum_{t=1}^T (\mu^* - \mu_{A_t})$ where $\mu^*$ is the best mean possible.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/Markov-Decision-Processes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/Markov-Decision-Processes/</guid>
+      <description>What is a Markov Decision Process? # A Markov Decision Process is a Markov model that solves nondeterministic search problems (where an action can result in multiple possible successor states).&#xA;A MDP is defined by:&#xA;A set of states $s$ A set of actions $a$ A transition model $T(s, a, s’)$ that represents the probability $P(s’ | s, a)$ - that the action $a$ taken at state $s$ will lead to a new state $s’$.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/warehousing/Reinforcement-Learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/warehousing/Reinforcement-Learning/</guid>
+      <description>Introduction # Reinforcement Learning (RL) is an example of online planning, where agents have no prior knowledge of rewards or transitions and must explore an environment before using an estimated policy.&#xA;Model-based learning: attempts to estimate transition and reward functions with samples attained during exploration before solving MDP with estimates using value or policy iteration Model-free learning: attempts to estimate values/Q-values of states directly without construction a reward or transition model in MDP Passive reinforcement learning: agent is given a policy and learns the values of states under that policy.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://localhost:1313/sql/</link>
+    <description>Recent content on </description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/sql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQL Basics</title>
+      <link>http://localhost:1313/sql/00-SQL-Basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/sql/00-SQL-Basics/</guid>
+      <description>Relevant Materials # Note 1 Note 2 Discussion 1 What is SQL? # Structured Query Language (/ˈsiːkwəl/) is a highly standardized syntax for performing operations on a database.&#xA;Terminology # SQL databases are a set of named relations, or tables, that describe the relationship between attributes. You can think of attributes as the columns of the table, and each record (also known as a tuple) being one row in the table.</description>
+    </item>
+  </channel>
+</rss>

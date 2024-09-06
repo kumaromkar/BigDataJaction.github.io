@@ -1,0 +1,3256 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/databases/04-Sorting-and-Hashing/">
+  <meta property="og:site_name" content="📈 BigData Junction">
+  <meta property="og:title" content="Sorting and Hashing">
+  <meta property="og:description" content="Introduction # When dealing with disk operations, traditional sorting algorithms tend to create lots of random accesses and can be quite slow. We’ll explore a few strategies for creating optimized algorithms for sorting databases that work around our limited memory and buffer management abilities.
+Relevant Materials # Note 6: Sorting Note 7: Hashing Discussion 4: Sorting Discussion 5: Hashing Single-Pass Streaming # Single-pass streaming is an approach for mapping inputs to their desired outputs while minimizing memory and disk usage.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="databases">
+    <meta property="article:modified_time" content="2024-06-16T15:39:56+05:30">
+<title>Sorting and Hashing | 📈 BigData Junction</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.a861a34b0976720d1504be0c2ee9870137640447a7fcac0c288dc885ce0f9bdb.css" integrity="sha256-qGGjSwl2cg0VBL4MLumHATdkBEen/KwMKI3Ihc4Pm9s=" crossorigin="anonymous">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  
+
+
+
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="Introduction # When dealing with disk operations, traditional sorting algorithms tend to create lots of random accesses and can be quite slow. We’ll explore a few strategies for creating optimized algorithms for sorting databases that work around our limited memory and buffer management abilities.
+Relevant Materials # Note 6: Sorting Note 7: Hashing Discussion 4: Sorting Discussion 5: Hashing Single-Pass Streaming # Single-pass streaming is an approach for mapping inputs to their desired outputs while minimizing memory and disk usage."
+/>
+<title>
+  Sorting and Hashing
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+
+
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+
+
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+  
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
+
+
+
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+
+
+
+<script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+<script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+
+
+
+ 
+<script>
+  const SEARCH_ENABLED =  false 
+  const LATEX_ENABLED =  true 
+  const PRODUCTION =  false 
+  const BASE_URL = "http://localhost:1313/"
+  const fetchData = Promise.all([
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+          .then(data => data.json())
+          .then(data => ({
+            index: data.index,
+            links: data.links,
+          })),
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+          .then(data => data.json()),
+      ])
+      .then(([{index, links}, content]) => ({
+        index,
+        links,
+        content,
+      }))
+
+    const render = () => {
+    
+    const siteBaseURL = new URL(BASE_URL);
+    const pathBase = siteBaseURL.pathname;
+    const pathWindow = window.location.pathname;
+    const isHome = pathBase == pathWindow;
+
+    addCopyButtons();
+    
+
+    
+
+    addCollapsibleCallouts();
+    
+
+    
+    initPopover(
+      "http://localhost:1313",
+       true 
+    )
+    
+
+    
+    const footer = document.getElementById("footer")
+    if (footer) {
+      const container = document.getElementById("graph-container")
+      
+      if (!container) return requestAnimationFrame(render)
+      
+      container.textContent = ""
+
+      const drawGlobal = true;
+      drawGraph(
+          "http://localhost:1313",
+          drawGlobal,
+          [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
+          drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+        );
+
+      }
+    
+
+    
+      var els = document.getElementsByClassName("mermaid");
+      if (els.length > 0) {
+        import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+          (obj) => {
+            
+            
+            obj.default.init();
+          }
+        )
+      }
+    
+  }
+
+  const init = (doc = document) => {
+    
+    addCopyButtons();
+    
+
+    addTitleToCodeBlocks();
+    renderMathInElement(doc.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      macros: {
+        '’': "'"
+      },
+      throwOnError : false
+    });
+    
+  };
+</script>
+
+<script>
+  window.Million = {
+    navigate: (url) => (window.location.href = url),
+    prefetch: () => {},
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init()
+    render()
+  })
+</script>
+
+
+</head>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<header class="book-header">
+    
+    <label for="menu-control">
+      <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    </label>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon" class="quartz-search">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <main class="flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<div class="menu-search">
+  <div id="search-icon" class="quartz-search">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+      <title id="title">Search Icon</title>
+      <desc id="desc">Icon to open search</desc>
+      <g class="search-path" fill="none">
+        <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+        <circle cx="8" cy="8" r="7" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-36a3ed262b315ff04085d7b53a448994" class="toggle"  />
+    <label for="section-36a3ed262b315ff04085d7b53a448994" class="flex justify-between">
+      <a href="/python/" class="book-collapse-toggle ">Python</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Object Oriented Programming</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/inheritance/" class="">Inheritance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/access-control/" class="">Access Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/dynamic-method-selection/" class="">Dynamic Method Selection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/objects/" class="">Java Objects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/generics/" class="">Generic Types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Asymptotics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics/" class="">Asymptotic Analysis Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/amortization/" class="">Amortization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics-practice/" class="">Asymptotics Practice</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Abstract Data Types</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2805f6370848571b8798d519e9c354a9" class="toggle"  />
+    <label for="section-2805f6370848571b8798d519e9c354a9" class="flex justify-between">
+      <a href="/python/abstract-data-types/collections/" class="book-collapse-toggle ">Collections</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/arrays/" class="">Arrays</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/linked-lists/" class="">Linked Lists</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/sets/" class="">Sets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/stacks-and-queues/" class="">Stacks and Queues</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f2ba402577081742d50fe3e1cde178c1" class="toggle"  />
+    <label for="section-f2ba402577081742d50fe3e1cde178c1" class="flex justify-between">
+      <a href="/python/abstract-data-types/binary-trees/" class="book-collapse-toggle ">Binary Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/balanced-search-structures/" class="">Balanced Search Structures</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/heaps/" class="">Heaps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/tries/" class="">Tries</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/hashing/" class="">Hashing and Hash Tables</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/union-find-disjoint-sets/" class="">Union Find (Disjoint Sets)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/comparables-and-comparators/" class="">Comparables and Comparators</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Algorithms</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-840c6fbe99128235711db7f7aea6e8ea" class="toggle"  />
+    <label for="section-840c6fbe99128235711db7f7aea6e8ea" class="flex justify-between">
+      <a href="/python/algorithms/searching/" class="book-collapse-toggle ">Searching</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/binary-search/" class="">Binary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/breadth-first-search-bfs/" class="">Breadth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/depth-first-search-dfs/" class="">Depth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-15240e0c0d29d00ce3941dfb840ed889" class="toggle"  />
+    <label for="section-15240e0c0d29d00ce3941dfb840ed889" class="flex justify-between">
+      <a href="/python/algorithms/shortest-paths/" class="book-collapse-toggle ">Shortest Paths</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/dijkstras-algorithm/" class="">Dijkstra&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/a-search/" class="">A* Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ebd3f2b246ca70c549a11d8499364c15" class="toggle"  />
+    <label for="section-ebd3f2b246ca70c549a11d8499364c15" class="flex justify-between">
+      <a href="/python/algorithms/minimum-spanning-trees/" class="book-collapse-toggle ">Minimum Spanning Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/kruskals-algorithm/" class="">Kruskal&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/prims-algorithm/" class="">Prim&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/sorting/" class="">Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimax/" class="">Minimax Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Misc. Topics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/more-resources/" class="">More Resources</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8eaa952c883657ff0fde6609f1afb6ac" class="toggle"  />
+    <label for="section-8eaa952c883657ff0fde6609f1afb6ac" class="flex justify-between">
+      <a href="/sql/" class="book-collapse-toggle ">SQL</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2cb61b7535210994a46f35adee41bda7" class="toggle"  />
+    <label for="section-2cb61b7535210994a46f35adee41bda7" class="flex justify-between">
+      <a href="/hadoop/" class="book-collapse-toggle ">Hadoop</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hadoop/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f6ae2f239b12d2df8093c89b05eba5b9" class="toggle"  />
+    <label for="section-f6ae2f239b12d2df8093c89b05eba5b9" class="flex justify-between">
+      <a href="/hive/" class="book-collapse-toggle ">Hive</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/hive/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2602ae26ced6eeaf33acf65208f5d2ab" class="toggle" checked />
+    <label for="section-2602ae26ced6eeaf33acf65208f5d2ab" class="flex justify-between">
+      <a href="/databases/" class="book-collapse-toggle ">Databases</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/04-Sorting-and-Hashing/" class="active">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/databases/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f848154d2659534e47b8b735c6a1aa4d" class="toggle"  />
+    <label for="section-f848154d2659534e47b8b735c6a1aa4d" class="flex justify-between">
+      <a href="/pyspark/" class="book-collapse-toggle ">Pyspark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/pyspark/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-463481d181ee2ba85d46b84df8b4ee12" class="toggle"  />
+    <label for="section-463481d181ee2ba85d46b84df8b4ee12" class="flex justify-between">
+      <a href="/airflow/" class="book-collapse-toggle ">Airflow</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/resources/" class="">Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/midterm-tips/" class="">Midterm Tips</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c9e3e16db5c81a42de0a79d6b6abba50" class="toggle"  />
+    <label for="section-c9e3e16db5c81a42de0a79d6b6abba50" class="flex justify-between">
+      <a href="/warehousing/" class="book-collapse-toggle ">Data Warehousing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/binary-decision-making/" class="">Binary Decision Making</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/hypothesis-testing/" class="">Hypothesis Testing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/decision-theory/" class="">Decision Theory</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/parameter-estimation/" class="">Parameter Estimation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/sampling/" class="">Sampling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/regression-and-glms/" class="">Regression and GLMs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/nonparametric-methods/" class="">Nonparametric Methods</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/interpretability/" class="">Interpretability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/causality/" class="">Causality</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/bandits/" class="">Bandits</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Markov-Decision-Processes/" class="">Markov Decision Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/warehousing/Reinforcement-Learning/" class="">Reinforcement Learning</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d841c4a4c551bb4e21d460836d4142" class="toggle"  />
+    <label for="section-86d841c4a4c551bb4e21d460836d4142" class="flex justify-between">
+      <a href="/spark/" class="book-collapse-toggle ">Spark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intro-to-the-internet/" class="">Intro to the Internet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/cli/" class="">CLI Tools</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/intradomain-routing/" class="">Introduction to Routing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/measuring-link-performance/" class="">Measuring Link Performance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/resource-sharing-packet-and-circuit-switching/" class="">Resource Sharing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/internet-organization-and-layers/" class="">Internet Organization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/sockets-and-ports/" class="">Sockets and Ports</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/addressing-ip/" class="">Addressing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/interdomain-routing-bgp/" class="">Interdomain Routing (BGP)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/TCP/" class="">TCP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/reliability/" class="">Reliability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/congestion-control/" class="">Congestion Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/dns/" class="">DNS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/web/" class="">Web</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/ethernet/" class="">Ethernet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/end-to-end-operation/" class="">End to End Operation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/spark/final-review/" class="">Final Review</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="toggle"  />
+    <label for="section-b7b75b08ea746eeb407fc7d37ea4cda5" class="flex justify-between">
+      <a href="/git/" class="book-collapse-toggle ">Version Control-Git</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-1-OS-Basics/" class="">Chapter 1: OS Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-2-Processes/" class="">Chapter 2: Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-3-Threads/" class="">Chapter 3: Threads</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-4-I-O/" class="">Chapter 4: I/O</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-5-Synchronization/" class="">Chapter 5: Synchronization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-6-Scheduling/" class="">Chapter 6: Scheduling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-7-Address-Translation/" class="">Chapter 7: Address Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-8-Caching/" class="">Chapter 8: Caching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Chapter-9-File-Systems/" class="">Chapter 9: File Systems</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/git/Appendix-A-GDB-foobars/" class="">GDB Reference</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/contributing"  target="_blank" rel="noopener">
+        Contribute
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/64bitpandas/notes/issues"  target="_blank" rel="noopener">
+        Feedback
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+    <div class="book-page container">
+      
+
+      
+      
+  <article class="markdown">
+    <h1 class="title">Sorting and Hashing</h1>
+    
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+<h2 id="introduction">
+  Introduction
+  <a class="anchor" href="#introduction">#</a>
+</h2>
+<p>When dealing with disk operations, traditional sorting algorithms tend to create lots of random accesses and can be quite slow. We’ll explore a few strategies for creating optimized algorithms for sorting databases that work around our limited memory and buffer management abilities.</p>
+<h2 id="relevant-materials">
+  Relevant Materials
+  <a class="anchor" href="#relevant-materials">#</a>
+</h2>
+<ul>
+<li>
+<a href="https://notes.bencuan.me/cs186/coursenotes/n06-Sorting.pdf" rel="noopener">Note 6: Sorting</a></li>
+<li>
+<a href="https://notes.bencuan.me/cs186/coursenotes/n07-Hashing.pdf" rel="noopener">Note 7: Hashing</a></li>
+<li>
+<a href="https://docs.google.com/presentation/d/1ZZxV_EziQJd47w3MNo72X4z8c7upX4KGiMqvuEI-vnM/edit#slide=id.g157c8825e69_0_1744" rel="noopener">Discussion 4: Sorting</a></li>
+<li>
+<a href="https://docs.google.com/presentation/d/1vsnH3HhD5SlBZpfnLkeUAoYLeoD9jOQ_0ADcS5A7hR0/edit#slide=id.g4fe834b467_0_0" rel="noopener">Discussion 5: Hashing</a></li>
+</ul>
+<h2 id="single-pass-streaming">
+  Single-Pass Streaming
+  <a class="anchor" href="#single-pass-streaming">#</a>
+</h2>
+<p>Single-pass streaming is an approach for mapping inputs to their desired outputs while minimizing memory and disk usage. We will see this principle being used for many algorithms in this course.</p>
+<p><strong>Main idea:</strong> There are two buffers (input and output). Continuously read from the input buffer and convert them into outputs to place in the output buffer. Only write to disk when the output buffer fills.</p>
+<p>
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Untitled.png" width="auto" alt="Untitled"  /></p>
+<p><strong>Optimization: double buffering</strong></p>
+<ul>
+<li>The main thread runs the function that converts inputs into outputs.</li>
+<li>A second I/O thread runs simultaneously to handle the filling and draining of input and output buffers.</li>
+<li>If the main thread is ready for a new buffer to compute, swap buffers between the two threads.</li>
+</ul>
+<h2 id="two-way-external-merge-sort">
+  Two-Way External Merge Sort
+  <a class="anchor" href="#two-way-external-merge-sort">#</a>
+</h2>
+<p>Two-Way External Merge Sort is a building block to generalized merge sort.</p>
+<p><strong>Main idea:</strong> As input buffers are streaming in, sort each input buffer, then merge two input buffers together into one output buffer using merge sort. Repeat until all pages are merged.</p>
+<p>
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Untitled%201.png" width="auto" alt="Untitled"  /></p>
+<p>For larger input sets that span multiple pages, several passes are required. In each pass, pages are merged together and double in size.</p>
+<p><strong>I/O Cost Analysis</strong></p>
+<ul>
+<li>Suppose we have $N$ pages.</li>
+<li>In every pass, we read and write each page in file, causing $2N$ IO’s.</li>
+<li>The number of passes is logarithmic in nature: $\lceil \log_2 N \rceil + 1$</li>
+<li>Multiplying the number of passes by the cost per pass gives a total cost of $2N \cdot (\lceil log_2 N \rceil + 1)$.</li>
+</ul>
+<h2 id="general-external-merge-sort">
+  General External Merge Sort
+  <a class="anchor" href="#general-external-merge-sort">#</a>
+</h2>
+<p>In a typical system, we have more than 3 buffer pages available to us at a time. So, we can merge more than two pages at a time. Let&rsquo;s walk through how this might look like (with the example from Discussion 4):</p>
+<p>
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Pasted%20image%2020230108224822.png" width="auto" alt="ms"  /></p>
+<h3 id="pass-0">
+  Pass 0
+  <a class="anchor" href="#pass-0">#</a>
+</h3>
+<p>In the example above, we have 8 data pages of 2 records each. Since we can only fit 4 pages in the buffer at once, we will need multiple passes.</p>
+<p>For pass 0, the goal is to create the largest sorted runs possible by filling the buffer with records. Since our buffer can fit 4 pages at once, we&rsquo;ll end up creating 2 sorted runs of 4 pages each. <strong>Pass 0 does not need to use an output buffer, since we&rsquo;re not streaming anything!</strong> Every set of 4 pages is self-contained.</p>
+<p>Eventually, we&rsquo;ll create the two runs below by grouping 4 pages together and sorting them in memory:</p>
+<pre tabindex="0"><code>[0, 1, 6, 9, 10, 17, 20, 25] (pages 0-3)
+[2, 3, 4, 7, 8, 11, 12, 15] (pages 4-7)
+</code></pre><p>This process takes $2N$ I/Os, where $N$ is the total number of pages, because we need to first read all the pages then write them all back out once they&rsquo;re sorted into runs.</p>
+<h3 id="pass-1">
+  Pass 1
+  <a class="anchor" href="#pass-1">#</a>
+</h3>
+<p>For the next pass, we <em>do</em> need an output buffer, since we must persist data in between runs to combine them. This is what it might look like in memory:
+
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Pasted%20image%2020230108225437.png" width="auto" alt="p1"  />
+Now that we&rsquo;re using general external merge sort, you can see that we can merge up to 3 sorted runs at the same time ($N-1$). But since only 2 were created, the final input buffer will be left empty.</p>
+<p>The process of sorting in-memory is as follows:</p>
+<ol>
+<li>Read in all of the input pages.</li>
+<li>Find the minimum value out of all of the input pages.</li>
+<li>Write that value to the output buffer, and delete it from its source input buffer.</li>
+<li>If the output buffer is full, write it to disk and empty it.</li>
+<li>If all input buffers are full, flush the rest of the output buffer to disk and we&rsquo;re done!</li>
+</ol>
+<h3 id="calculating-the-number-of-passes">
+  Calculating the Number of Passes
+  <a class="anchor" href="#calculating-the-number-of-passes">#</a>
+</h3>
+<p>The number of passes required to sort $N$ pages when we have $B$ buffers is given by the equation below:
+$$1 + \lceil \log_{B-1} \lceil N / B \rceil \rceil$$
+The $1$ at the front is for Pass 0. This creates $N/B$ runs of length $B$.</p>
+<p>Then, in every pass, we combine $B-1$ runs into a single run. The algorithm completes when the number of runs left is $1$, so we need to figure out how many times to divide the initial number of runs $N/B$ by $B-1$ before it becomes $1$, which can be done using the $\log$ term.</p>
+<p>One implication of this equation is that the number of required passes decreases exponentially with respect to the number of buffer pages!</p>
+<h3 id="calculating-the-io-cost-of-external-sort">
+  Calculating the I/O Cost of External Sort
+  <a class="anchor" href="#calculating-the-io-cost-of-external-sort">#</a>
+</h3>
+<p>The I/O cost calculation is actually pretty simple once we know the number of passes. In each pass, we read every page in and write every page out once, so we can just multiply the number of passes by $2N$:
+$$2N(1 + \lceil \log_{B-1} \lceil N / B \rceil \rceil)$$</p>
+<h2 id="external-hashing">
+  External Hashing
+  <a class="anchor" href="#external-hashing">#</a>
+</h2>
+<p>Hashing is best for when we don’t care about the absolute order of elements, but only to group similar elements together. This is useful for GROUP BY operations.</p>
+<p>In 61B, we learned how to create hash tables using an array of linked lists. However, this method only works if we have enough memory to store the entire collection of data at the same time, so we&rsquo;ll need to modify this a bit!</p>
+<h3 id="divide-and-conquer">
+  Divide and Conquer
+  <a class="anchor" href="#divide-and-conquer">#</a>
+</h3>
+<p>The main idea of external hashing is use a two-step process:</p>
+<ol>
+<li>Break down the problem into smaller parts until each subpart can fit entirely into memory.</li>
+<li>Combine the partitions back together to create one big hash table.
+
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Untitled%202.png" width="auto" alt="Untitled"  /></li>
+</ol>
+<p>Essentially, by partitioning the values, we are splitting a large file into many smaller files, each one with at most $B$ pages.</p>
+<p>Since these smaller files can each fit into the buffer, we can then use our normal methods to create an in-memory hash table, which will group everything together.</p>
+<h3 id="how-is-this-different-from-sorting">
+  How is this different from sorting?
+  <a class="anchor" href="#how-is-this-different-from-sorting">#</a>
+</h3>
+<p>There are a few important differences:</p>
+<ol>
+<li>Rather than creating a smaller number of longer runs for each pass, we&rsquo;re creating a larger number of smaller runs.</li>
+<li>In the real world, no hash function can always uniformly partition data. So, we will probably end up having some groups being larger than others.</li>
+<li>We might end up only filling a part of a page in some partitions, even though we started with completely full pages. This means that the number of writes per pass might be greater than the number of reads. (Example: If we had $N=35$ and created $10$ uniform partitions, each partition would be $4$ pages long (3.5 rounded up). So we&rsquo;d have 35 reads, and 40 writes.)</li>
+</ol>
+<h3 id="use-unique-hash-functions">
+  Use unique hash functions!
+  <a class="anchor" href="#use-unique-hash-functions">#</a>
+</h3>
+<p>If we used the same hash function to create partitions in every pass, then our partitions would never get smaller! So, for every pass of external hashing, we must use a different hash function.</p>
+<p>Another related issue is when we have a very large number of identical values, since they won&rsquo;t ever be broken down. When implementing hashing, we should add in a check for this case and stop recursively partitioning if it occurs.</p>
+<h3 id="calculating-io-cost-of-hashing">
+  Calculating I/O Cost of Hashing
+  <a class="anchor" href="#calculating-io-cost-of-hashing">#</a>
+</h3>
+<p>As a consequence of the above, we can&rsquo;t write a clean formula for calculating the I/O cost of hashing. Luckily, there is a straightforward process we can use instead.</p>
+<p>For this part, let&rsquo;s suppose that $B=10$ and we have $N=100$ pages to hash. Our first hash function creates one partition of size $50$, one partition of size $29$, and seven partitions of size $3$. All future hash functions are uniform (i.e. they create $B-1$ partitions of equal size).</p>
+<h4 id="pass-1-1">
+  Pass 1
+  <a class="anchor" href="#pass-1-1">#</a>
+</h4>
+<p>First, let&rsquo;s calculate the I/O cost of the first pass:</p>
+<ul>
+<li>We read in all $N=100$ pages, which takes $100$ I/Os.</li>
+<li>We write $50 + 29 + 7*3$ pages, which takes $100$ I/Os</li>
+<li>In total, Pass 1 takes $200$ I/Os.</li>
+</ul>
+<h4 id="pass-2">
+  Pass 2
+  <a class="anchor" href="#pass-2">#</a>
+</h4>
+<p>For the next pass, we only advance the partitions which don&rsquo;t fit in memory ($n \le B$). In this case, only the two large partitions (50 and 20) satisfy this, so they are recursively partitioned.</p>
+<ul>
+<li>It takes $50 + 29 = 79$ I/Os to read in the data for this pass.</li>
+<li>The partition of size $50$ gets broken down into $B-1=9$ equal partitions of size $\lceil 50/9 \rceil = 6$. This incurs $9*6=54$ I/Os to write the grouped partition back to disk.</li>
+<li>The partition of size $29$ gets broken down into $9$ equal partitions of size $\lceil 29/9 \rceil = 4$. This incurs $9*4=36$ I/S to write.</li>
+<li>In total, this pass incurs $79 + 54 + 36 = 169$ I/Os.</li>
+</ul>
+<h4 id="conquer">
+  Conquer
+  <a class="anchor" href="#conquer">#</a>
+</h4>
+<p>Now, all of our partitions fit into disk so we can run the conquer phase to group them back together! To do so, we need to read in every partition we have into memory, and write the grouped version back.</p>
+<p>To regroup, this is what our recursively partitioned data looks like right now:</p>
+<ul>
+<li>$7$ partitions of size $3$, from the first pass</li>
+<li>$9$ partitions of size $6$, from recursively partitioning the $50$ page partition</li>
+<li>$9$ partitions of size $4$, from recursively partitioning the $29$ page partition</li>
+</ul>
+<p>So, to read and write all of this will take $2 \times (8<em>2 + 9</em>6 + 9*4) = 212$ I/Os</p>
+<h4 id="total">
+  Total
+  <a class="anchor" href="#total">#</a>
+</h4>
+<p>The I/O cost of hashing in this example is $200 + 169 + 212 = 581$ I/Os.
+
+
+
+<img src="http://localhost:1313/databases/Sorting%20and%20Hashing/Pasted%20image%2020230109000909.png" width="auto" alt="diagram"  /></p>
+
+
+    
+<div class="like-button">
+    <link rel="stylesheet" href="https://api.bencuan.me/public/applause-button.css" />
+    <script src="https://api.bencuan.me/public/applause-button.js"></script>
+    
+    
+    <applause-button style="width: 48px; height: 48px" multiclap="true" color="#ff4faa" api="https://api.bencuan.me" />
+</div>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
+        <ul>
+            
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
+    </footer>
+</div>
+
+
+    
+  </article>
+ 
+      
+      
+      
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#relevant-materials">Relevant Materials</a></li>
+        <li><a href="#single-pass-streaming">Single-Pass Streaming</a></li>
+        <li><a href="#two-way-external-merge-sort">Two-Way External Merge Sort</a></li>
+        <li><a href="#general-external-merge-sort">General External Merge Sort</a>
+          <ul>
+            <li><a href="#pass-0">Pass 0</a></li>
+            <li><a href="#pass-1">Pass 1</a></li>
+            <li><a href="#calculating-the-number-of-passes">Calculating the Number of Passes</a></li>
+            <li><a href="#calculating-the-io-cost-of-external-sort">Calculating the I/O Cost of External Sort</a></li>
+          </ul>
+        </li>
+        <li><a href="#external-hashing">External Hashing</a>
+          <ul>
+            <li><a href="#divide-and-conquer">Divide and Conquer</a></li>
+            <li><a href="#how-is-this-different-from-sorting">How is this different from sorting?</a></li>
+            <li><a href="#use-unique-hash-functions">Use unique hash functions!</a></li>
+            <li><a href="#calculating-io-cost-of-hashing">Calculating I/O Cost of Hashing</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

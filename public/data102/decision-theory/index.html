@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta property="og:url" content="http://localhost:1313/data102/decision-theory/">
+  <meta property="og:site_name" content="📈 BigData Junction">
+  <meta property="og:title" content="📈 BigData Junction">
+  <meta property="og:description" content="So far, in [[binary decision making]] and [[hypothesis testing]], we’ve explored how to make as few mistakes as possible when making binary predictions.
+Intro to Decision Theory # We can generalize a decision problem to the following:
+Suppose there is some unknown quantity of interest $\theta$. $\theta$ is random under a Bayesian approach, and fixed if frequentist. We collect/observe some data $X$. There is some true distribution that the data is drawn from, $p(X | \theta)$.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="data102">
+    <meta property="article:modified_time" content="2024-06-16T14:20:06+05:30">
+<title>Decision Theory | 📈 BigData Junction</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.a861a34b0976720d1504be0c2ee9870137640447a7fcac0c288dc885ce0f9bdb.css" integrity="sha256-qGGjSwl2cg0VBL4MLumHATdkBEen/KwMKI3Ihc4Pm9s=" crossorigin="anonymous">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  
+
+
+
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="So far, in [[binary decision making]] and [[hypothesis testing]], we&rsquo;ve explored how to make as few mistakes as possible when making binary predictions.
+Intro to Decision Theory # We can generalize a decision problem to the following:
+Suppose there is some unknown quantity of interest $\theta$. $\theta$ is random under a Bayesian approach, and fixed if frequentist. We collect/observe some data $X$. There is some true distribution that the data is drawn from, $p(X | \theta)$."
+/>
+<title>
+  📈 BigData Junction
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+
+
+<link rel="shortcut icon" type="image/png"  href="http://localhost:1313//favicon.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<link href="http://localhost:1313/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+
+
+<link href="http://localhost:1313/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+  
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+<script src="http://localhost:1313/quartz/js/darkmode.5222f81439f46765b5d071db9df5495d.min.js"></script>
+
+
+
+<script src="http://localhost:1313/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+
+
+
+<script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+<script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+
+<script src="http://localhost:1313/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+
+
+
+
+<script defer src="http://localhost:1313/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+
+
+
+ 
+<script>
+  const SEARCH_ENABLED =  false 
+  const LATEX_ENABLED =  true 
+  const PRODUCTION =  false 
+  const BASE_URL = "http://localhost:1313/"
+  const fetchData = Promise.all([
+        fetch("http:\/\/localhost:1313\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+          .then(data => data.json())
+          .then(data => ({
+            index: data.index,
+            links: data.links,
+          })),
+        fetch("http:\/\/localhost:1313\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+          .then(data => data.json()),
+      ])
+      .then(([{index, links}, content]) => ({
+        index,
+        links,
+        content,
+      }))
+
+    const render = () => {
+    
+    const siteBaseURL = new URL(BASE_URL);
+    const pathBase = siteBaseURL.pathname;
+    const pathWindow = window.location.pathname;
+    const isHome = pathBase == pathWindow;
+
+    addCopyButtons();
+    
+
+    
+
+    addCollapsibleCallouts();
+    
+
+    
+    initPopover(
+      "http://localhost:1313",
+       true 
+    )
+    
+
+    
+    const footer = document.getElementById("footer")
+    if (footer) {
+      const container = document.getElementById("graph-container")
+      
+      if (!container) return requestAnimationFrame(render)
+      
+      container.textContent = ""
+
+      const drawGlobal = true;
+      drawGraph(
+          "http://localhost:1313",
+          drawGlobal,
+          [{"/cs61b":"#4388cc"},{"/data102":"#ba0af0"},{"/cs70":"#70fa70"},{"/cs61a":"#fbff22"},{"/cs186":"#ffaf1c"},{"/cs168":"#ff86a1"},{"/cs162":"#ffdfdd"}],
+          drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+        );
+
+      }
+    
+
+    
+      var els = document.getElementsByClassName("mermaid");
+      if (els.length > 0) {
+        import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+          (obj) => {
+            
+            
+            obj.default.init();
+          }
+        )
+      }
+    
+  }
+
+  const init = (doc = document) => {
+    
+    addCopyButtons();
+    
+
+    addTitleToCodeBlocks();
+    renderMathInElement(doc.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      macros: {
+        '’': "'"
+      },
+      throwOnError : false
+    });
+    
+  };
+</script>
+
+<script>
+  window.Million = {
+    navigate: (url) => (window.location.href = url),
+    prefetch: () => {},
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    init()
+    render()
+  })
+</script>
+
+
+</head>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="http://localhost:1313/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<header class="book-header">
+    
+    <label for="menu-control">
+      <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    </label>
+    <h1 id="page-title"><a href="http://localhost:1313/">📈 BigData Junction</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon" class="quartz-search">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <main class="flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<div class="menu-search">
+  <div id="search-icon" class="quartz-search">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
+      <title id="title">Search Icon</title>
+      <desc id="desc">Icon to open search</desc>
+      <g class="search-path" fill="none">
+        <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+        <circle cx="8" cy="8" r="7" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-36a3ed262b315ff04085d7b53a448994" class="toggle"  />
+    <label for="section-36a3ed262b315ff04085d7b53a448994" class="flex justify-between">
+      <a href="/python/" class="book-collapse-toggle ">Python</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Object Oriented Programming</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/inheritance/" class="">Inheritance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/access-control/" class="">Access Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/dynamic-method-selection/" class="">Dynamic Method Selection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/objects/" class="">Java Objects</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/oop/generics/" class="">Generic Types</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Asymptotics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics/" class="">Asymptotic Analysis Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/amortization/" class="">Amortization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/asymptotics/asymptotics-practice/" class="">Asymptotics Practice</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Abstract Data Types</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2805f6370848571b8798d519e9c354a9" class="toggle"  />
+    <label for="section-2805f6370848571b8798d519e9c354a9" class="flex justify-between">
+      <a href="/python/abstract-data-types/collections/" class="book-collapse-toggle ">Collections</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/arrays/" class="">Arrays</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/linked-lists/" class="">Linked Lists</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/sets/" class="">Sets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/collections/stacks-and-queues/" class="">Stacks and Queues</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f2ba402577081742d50fe3e1cde178c1" class="toggle"  />
+    <label for="section-f2ba402577081742d50fe3e1cde178c1" class="flex justify-between">
+      <a href="/python/abstract-data-types/binary-trees/" class="book-collapse-toggle ">Binary Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/balanced-search-structures/" class="">Balanced Search Structures</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/heaps/" class="">Heaps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/binary-trees/tries/" class="">Tries</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/hashing/" class="">Hashing and Hash Tables</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/union-find-disjoint-sets/" class="">Union Find (Disjoint Sets)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/abstract-data-types/comparables-and-comparators/" class="">Comparables and Comparators</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Algorithms</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-840c6fbe99128235711db7f7aea6e8ea" class="toggle"  />
+    <label for="section-840c6fbe99128235711db7f7aea6e8ea" class="flex justify-between">
+      <a href="/python/algorithms/searching/" class="book-collapse-toggle ">Searching</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/binary-search/" class="">Binary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/breadth-first-search-bfs/" class="">Breadth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/searching/depth-first-search-dfs/" class="">Depth First Search (DFS)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-15240e0c0d29d00ce3941dfb840ed889" class="toggle"  />
+    <label for="section-15240e0c0d29d00ce3941dfb840ed889" class="flex justify-between">
+      <a href="/python/algorithms/shortest-paths/" class="book-collapse-toggle ">Shortest Paths</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/dijkstras-algorithm/" class="">Dijkstra&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/shortest-paths/a-search/" class="">A* Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ebd3f2b246ca70c549a11d8499364c15" class="toggle"  />
+    <label for="section-ebd3f2b246ca70c549a11d8499364c15" class="flex justify-between">
+      <a href="/python/algorithms/minimum-spanning-trees/" class="book-collapse-toggle ">Minimum Spanning Trees</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/kruskals-algorithm/" class="">Kruskal&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimum-spanning-trees/prims-algorithm/" class="">Prim&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/sorting/" class="">Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/algorithms/minimax/" class="">Minimax Algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Misc. Topics</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/python/misc-topics/more-resources/" class="">More Resources</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-8eaa952c883657ff0fde6609f1afb6ac" class="toggle"  />
+    <label for="section-8eaa952c883657ff0fde6609f1afb6ac" class="flex justify-between">
+      <a href="/sql/" class="book-collapse-toggle ">SQL</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/latex-reference/" class="">LaTeX Reference</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Discrete Math</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/overview/" class="">Discrete Math Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/propositional-logic/" class="">Propositional Logic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/proofs/" class="">Proofs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/stable-matching/" class="">Stable Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/graphs/" class="">Graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/modular-arithmetic/" class="">Modular Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/rsa-cryptography/" class="">RSA Cryptography</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/polynomials/" class="">Polynomials</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/countability/" class="">Countability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/discrete-math/computability/" class="">Computability</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <span class="book-menu-title">Probability</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/probability-overview/" class="">Probability Overview</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/counting/" class="">Counting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/discrete-probability/" class="">Discrete Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/hashing-and-the-union-bound/" class="">Hashing and the Union Bound</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/expectation-and-variance/" class="">Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/continuous-probability/" class="">Continuous Probability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/markov-chains/" class="">Markov Chains</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/the-beta-family/" class="">The Beta Family</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sql/probability/conditional-expectation-and-variance/" class="">Conditional Expectation and Variance</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2602ae26ced6eeaf33acf65208f5d2ab" class="toggle"  />
+    <label for="section-2602ae26ced6eeaf33acf65208f5d2ab" class="flex justify-between">
+      <a href="/Databases/" class="book-collapse-toggle ">Databases</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/io/" class="">What is an I/O and why should I care?</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/00-SQL-Basics/" class="">SQL Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/01-Disks-Buffers-Files/" class="">Disks, Buffers, and Files</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/02-B&#43;-Trees/" class="">B&#43; Trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/03-Buffer-Management/" class="">Buffer Management</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/04-Sorting-and-Hashing/" class="">Sorting and Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/05-Iterators-and-Joins/" class="">Iterators and Joins</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/06-Relational-Algebra/" class="">Relational Algebra</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/07-Query-Optimization/" class="">Query Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/08-Transactions/" class="">Transactions and ACID</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/09-Parallel-Query-Processing/" class="">Parallel Query Processing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/10-Recovery/" class="">Recovery</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/11-Distributed-Transactions/" class="">Distributed Transactions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Databases/12-ER-Diagrams/" class="">E-R Diagrams</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-463481d181ee2ba85d46b84df8b4ee12" class="toggle"  />
+    <label for="section-463481d181ee2ba85d46b84df8b4ee12" class="flex justify-between">
+      <a href="/airflow/" class="book-collapse-toggle ">Airflow</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/resources/" class="">Resources</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/airflow/midterm-tips/" class="">Midterm Tips</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d41c89716d526a96781a041e6cfe4e39" class="toggle" checked />
+    <label for="section-d41c89716d526a96781a041e6cfe4e39" class="flex justify-between">
+      <a href="/data102/" class="book-collapse-toggle ">Data Warehousing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/binary-decision-making/" class="">Binary Decision Making</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/hypothesis-testing/" class="">Hypothesis Testing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/decision-theory/" class="active">Decision Theory</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/parameter-estimation/" class="">Parameter Estimation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/sampling/" class="">Sampling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/regression-and-glms/" class="">Regression and GLMs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/nonparametric-methods/" class="">Nonparametric Methods</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/interpretability/" class="">Interpretability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/causality/" class="">Causality</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/concentration-inequalities/" class="">Concentration Inequalities</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/bandits/" class="">Bandits</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/Markov-Decision-Processes/" class="">Markov Decision Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data102/Reinforcement-Learning/" class="">Reinforcement Learning</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-86d841c4a4c551bb4e21d460836d4142" class="toggle"  />
+    <label for="section-86d841c4a4c551bb4e21d460836d4142" class="flex justify-between">
+      <a href="/Spark/" class="book-collapse-toggle ">Spark</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/intro-to-the-internet/" class="">Intro to the Internet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/cli/" class="">CLI Tools</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/intradomain-routing/" class="">Introduction to Routing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/measuring-link-performance/" class="">Measuring Link Performance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/resource-sharing-packet-and-circuit-switching/" class="">Resource Sharing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/internet-organization-and-layers/" class="">Internet Organization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/sockets-and-ports/" class="">Sockets and Ports</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/addressing-ip/" class="">Addressing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/interdomain-routing-bgp/" class="">Interdomain Routing (BGP)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/TCP/" class="">TCP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/reliability/" class="">Reliability</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/congestion-control/" class="">Congestion Control</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/dns/" class="">DNS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/web/" class="">Web</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/ethernet/" class="">Ethernet</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/end-to-end-operation/" class="">End to End Operation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/Spark/final-review/" class="">Final Review</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6b6b6d07b22fcdac3f1c31a721ae5ad5" class="toggle"  />
+    <label for="section-6b6b6d07b22fcdac3f1c31a721ae5ad5" class="flex justify-between">
+      <a href="/tst/" class="book-collapse-toggle ">Test</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-1-OS-Basics/" class="">Chapter 1: OS Basics</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-2-Processes/" class="">Chapter 2: Processes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-3-Threads/" class="">Chapter 3: Threads</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-4-I-O/" class="">Chapter 4: I/O</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-5-Synchronization/" class="">Chapter 5: Synchronization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-6-Scheduling/" class="">Chapter 6: Scheduling</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-7-Address-Translation/" class="">Chapter 7: Address Translation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-8-Caching/" class="">Chapter 8: Caching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Chapter-9-File-Systems/" class="">Chapter 9: File Systems</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/tst/Appendix-A-GDB-foobars/" class="">GDB Reference</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/contributing"  target="_blank" rel="noopener">
+        Contribute
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://github.com/64bitpandas/notes/issues"  target="_blank" rel="noopener">
+        Feedback
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+    <div class="book-page container">
+      
+
+      
+      
+  <article class="markdown">
+    <h1 class="title">Decision Theory</h1>
+    
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
+
+  
+  
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+<p>So far, in <a href="/data102/binary-decision-making" rel="noopener" class="internal-link" data-src="/data102/binary-decision-making">binary decision making</a> and <a href="/data102/hypothesis-testing" rel="noopener" class="internal-link" data-src="/data102/hypothesis-testing">hypothesis testing</a>, we&rsquo;ve explored how to make as few mistakes as possible when making binary predictions.</p>
+<h2 id="intro-to-decision-theory">
+  Intro to Decision Theory
+  <a class="anchor" href="#intro-to-decision-theory">#</a>
+</h2>
+<p>We can generalize a decision problem to the following:</p>
+<ul>
+<li>Suppose there is some unknown quantity of interest $\theta$.
+<ul>
+<li>$\theta$ is random under a Bayesian approach, and fixed if frequentist.</li>
+</ul>
+</li>
+<li>We collect/observe some data $X$.</li>
+<li>There is some true distribution that the data is drawn from, $p(X | \theta)$.</li>
+<li>We are tasked to create a good <strong>estimator</strong> $\delta(x)$ (also known as $\hat\theta$, which makes decisions based on the data.</li>
+<li>In order to quantify how good/bad our estimator is, we can use a loss function $l(\delta(x), \theta)$, where higher loss values are worse.</li>
+</ul>
+<h2 id="loss-functions">
+  Loss Functions
+  <a class="anchor" href="#loss-functions">#</a>
+</h2>
+<h3 id="01-loss">
+  0/1 Loss
+  <a class="anchor" href="#01-loss">#</a>
+</h3>
+<p>In the case of binary decisions:</p>
+<ul>
+<li>$\theta$ is either $0$ or $1$ and represents our reality.</li>
+<li>$\sigma(x)$ is also either $0$ or $1$ and represents our decision.</li>
+<li>A very simple loss function is to return $0$ if the decision matches reality, $1$ otherwise. This is known as <strong>0/1 Loss</strong>.</li>
+</ul>
+<h3 id="l2-loss">
+  L2 Loss
+  <a class="anchor" href="#l2-loss">#</a>
+</h3>
+<p>If our data is continuous, then 0/1 loss cannot be used.
+Instead, we can define the loss as follows:
+$$ l(\sigma(x), \theta) = (\sigma(x) - \theta)^2$$
+This is known as $L_2$ loss.</p>
+<h2 id="applying-loss-functions">
+  Applying Loss Functions
+  <a class="anchor" href="#applying-loss-functions">#</a>
+</h2>
+<h3 id="frequentist-risk">
+  Frequentist Risk
+  <a class="anchor" href="#frequentist-risk">#</a>
+</h3>
+<p>Under frequentist assumptions, the risk of choosing $\theta$ is equivalent to the expectation of the loss function:
+$$R(\theta) = E_{x|\theta}[l(\sigma(x), \theta)] = \int l(\sigma(x), \theta) p(x|\theta) dx$$
+In other words, take the average loss for every possible value, and weight it by how likely it is to get that value.</p>
+<h3 id="bayesian-posterior-risk">
+  Bayesian Posterior Risk
+  <a class="anchor" href="#bayesian-posterior-risk">#</a>
+</h3>
+<p>Syntactically, Bayesian risk looks very similar to frequentist risk:
+$$\rho(\theta) = E_{\theta|x}[l(\sigma(x), \theta)] = \int l(\sigma(x), \theta) p(\theta|x) d\theta$$
+The main difference is that rather than iterating over every possible value of data weighted by its probability, we iterate over every possible distribution weighted by how likely it is to get our data from it.</p>
+<h3 id="bayes-risk">
+  Bayes Risk
+  <a class="anchor" href="#bayes-risk">#</a>
+</h3>
+<p>$$E_{\theta, x}[l(\sigma(x), \theta)] = E_\theta[E_{x|\theta}[l(\sigma(x), \theta)]] = E_x[E_{\theta|x}[l(\sigma(x), \theta)]]$$
+Bayes risk is the joint expectation of the loss function over all possible data and distributions. It can be represented using either the Frequentist risk or the Bayesian posterior risk.</p>
+<h3 id="bias-variance-decomposition">
+  Bias-Variance Decomposition
+  <a class="anchor" href="#bias-variance-decomposition">#</a>
+</h3>
+<p>Below is the calculation for the frequentist risk of the L2 loss function:
+$$
+\begin{align}
+R(\theta)
+&amp;= E_{x|\theta}\Big[\big(
+\delta(x) - E_{x|\theta}[\delta(x)] + E_{x|\theta}[\delta(x)] - \theta
+\big)^2\Big] \\ &amp;= E_{x|\theta}\Big[\big(
+\delta - \bar{\delta} + \bar{\delta} - \theta
+\big)^2\Big] \\ &amp;= E_{x|\theta}\Big[
+\big(\delta - \bar{\delta}\big)^2 +
+\underbrace{2\big(\delta - \bar{\delta}\big)\big(\bar{\delta} - \theta\big)}<em>{=0} +
+\big(\bar{\delta} - \theta\big)^2
+\Big] \\ &amp;= E</em>{x|\theta}\Big[\big(\delta - \bar{\delta}\big)^2\Big] +
+E_{x|\theta}\Big[\big(\bar{\delta} - \theta\big)^2\Big] \\ &amp;= \underbrace{E_{x|\theta}\Big[\big(\delta - \bar{\delta}\big)^2\Big]}<em>{\text{variance of }\delta(x)} +
+\big(\underbrace{\bar{\delta} - \theta}</em>{\text{bias of }\delta(x))}\big)^2 \\ \end{align}
+$$
+The <strong>variance</strong> of the estimator is a measurement for how spread out the data is when compared ot the average. Larger variance means that the model is more sensitive to randomness in the data.</p>
+<p>The <strong>bias</strong> of the estimator is a measurement for how far the average of the estimator is from the true value of $\theta$. In other words, if we average out all of the randomness in the data, how close is our model to reality?</p>
+<p>If the estimator were perfect, then the expectation of $\delta - \theta$ should be $0$, which would make the bias $0$.</p>
+
+
+    
+<div class="like-button">
+    <link rel="stylesheet" href="https://api.bencuan.me/public/applause-button.css" />
+    <script src="https://api.bencuan.me/public/applause-button.js"></script>
+    
+    
+    <applause-button style="width: 48px; height: 48px" multiclap="true" color="#ff4faa" api="https://api.bencuan.me" />
+</div>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="http://localhost:1313/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made with <a href="https://github.com/64bitpandas/amethyst">Amethyst</a>, © 2024 Kumar Omkar</p>
+        <ul>
+            
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
+    </footer>
+</div>
+
+
+    
+  </article>
+ 
+      
+      
+      
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#intro-to-decision-theory">Intro to Decision Theory</a></li>
+        <li><a href="#loss-functions">Loss Functions</a>
+          <ul>
+            <li><a href="#01-loss">0/1 Loss</a></li>
+            <li><a href="#l2-loss">L2 Loss</a></li>
+          </ul>
+        </li>
+        <li><a href="#applying-loss-functions">Applying Loss Functions</a>
+          <ul>
+            <li><a href="#frequentist-risk">Frequentist Risk</a></li>
+            <li><a href="#bayesian-posterior-risk">Bayesian Posterior Risk</a></li>
+            <li><a href="#bayes-risk">Bayes Risk</a></li>
+            <li><a href="#bias-variance-decomposition">Bias-Variance Decomposition</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
