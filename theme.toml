@@ -6,11 +6,11 @@ license = "MIT"
 licenselink = "https://github.com/64bitpandas/amethyst/blob/main/LICENSE"
 description = "Obsidian-compatible Hugo theme for personal notes"
 homepage = "http://bigdatajaction.github.io/"
-demosite = "http://bigdatajunction.github.io/"
+demosite = "http://bigdatajaction.github.io/"
 tags = ["responsive", "notes", "obsidian", "obsidian-md", "latex", "documentation", "docs", "flexbox", "search", "mobile", "multilingual"]
 features = []
 min_version = "0.93"
 
 [author]
   name = "Kumar Omkar
-  homepage = "http://bigdatajunction.github.io/'"
+  homepage = "http://bigdatajaction.github.io/'"
