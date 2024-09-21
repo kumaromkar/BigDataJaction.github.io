@@ -8,13 +8,6 @@
     <language>en</language>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>http://localhost:1313/python/oop/inheritance/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/python/oop/inheritance/</guid>
-      <description>What is inheritance? # Essentially, it&amp;rsquo;s a way of putting similar objects together to generalize behavior. Inheritance is best used with relating subtypes to larger categories. For example, an :tangerine:orange is a fruit (so it&amp;rsquo;s a subtype of fruit).&#xA;Let&amp;rsquo;s say that a supermarket named Jrader Toe&amp;rsquo;s asks us to simulate fruits for them in an online system. We could do it like this:&#xA;Now, every fruit would need some of the same properties- like cost, weight, and name!</description>
-    </item>
-    <item>
       <title>Asymptotic Analysis Basics</title>
       <link>http://localhost:1313/python/asymptotics/asymptotics/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -36,39 +29,11 @@
       <description>[!info] Content Note&#xA;Before reading, review Minimum Spanning Trees and Union Find (Disjoint Sets) as they both make Kruskal&amp;rsquo;s algorithm possible!&#xA;Conceptual Overview # Kruskal&amp;rsquo;s algorithm is another optimal way to construct a minimum spanning tree. It&amp;rsquo;s benefits are that it is conceptually very simple, and easy to implement. The idea is that first we sort all the edges of the graph in order of increasing weight. Then, add the smallest edge to the MST we are constructing unless this creates a cycle in the MST.</description>
     </item>
     <item>
-      <title></title>
-      <link>http://localhost:1313/python/oop/access-control/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/python/oop/access-control/</guid>
-      <description>What is Access Control? # In Java, we can specify the level of access certain variables and methods have. With this power, we can show or hide these variables to other classes and references on demand!&#xA;There are 4 modifier levels that get progressively more open:&#xA;Private: Only this class can see it. Package Protected (the default level): All classes in the same package can see it. Protected: Subclasses (that inherit from the parent) can also see it.</description>
-    </item>
-    <item>
       <title>Prim&#39;s Algorithm</title>
       <link>http://localhost:1313/python/algorithms/minimum-spanning-trees/prims-algorithm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/python/algorithms/minimum-spanning-trees/prims-algorithm/</guid>
       <description>[!info] Content Note&#xA;Before reading, review Minimum Spanning Trees, as that is the foundation of Prim&amp;rsquo;s algorithm!&#xA;Conceptual Overview # Prim&amp;rsquo;s algorithm is an optimal way to construct a minimum spanning tree. It basically starts from an arbitrary vertex, then considers all its immediate neighbors and picks the edge with smallest weight to be part of the MST. Note: this creates a cut in the graph, where the two nodes in the MST being constructed are in one set, and every other vertex of the graph is in another set.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/python/oop/dynamic-method-selection/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/python/oop/dynamic-method-selection/</guid>
-      <description>Dynamic Method Selection # [!warning] Content Note&#xA;This is a very tricky topic. Make sure you are comfortable with inheritance and access controlbefore proceeding!&#xA;Inheritance is great and all, but it does have some issues. One of the biggest issues lies in overriding: if two methods have exactly the same name and signature, which one do we call?&#xA;In a standard use case, this is a pretty simple answer: whichever one is in the class we want!</description>
-    </item>
-    <item>
-      <title>Java Objects</title>
-      <link>http://localhost:1313/python/oop/objects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/python/oop/objects/</guid>
-      <description>There are two main categories of objects in Java: Primitive Types and Reference Types. This page will give a brief overview of both, and close off with some info about the mystical Object class.&#xA;Primitive Types # Primitive types are built in to Java and have fixed memory sizes. Different types require different amounts of memory.&#xA;If you remember environment diagrams, you may recall that some variables are put straight into the boxes, while others have an arrow pointing to them.</description>
-    </item>
-    <item>
-      <title>Generic Types</title>
-      <link>http://localhost:1313/python/oop/generics/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/python/oop/generics/</guid>
-      <description>Sometimes, we want things to support any type, including user defined types that we don&amp;rsquo;t know about! For example, it would make sense that we don&amp;rsquo;t care what type we make a List out of, since it&amp;rsquo;s just a whole bunch of objects put together.&#xA;The Java solution is generics! Generic types are denoted by a &amp;lt;&amp;gt; and can be appended to methods and classes. Here&amp;rsquo;s an example with classes:</description>
     </item>
     <item>
       <title></title>

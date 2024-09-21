@@ -2,10 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/python/oop/inheritance/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://localhost:1313/python/asymptotics/asymptotics/</loc>
     <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
@@ -18,23 +14,7 @@
     <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/python/oop/access-control/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://localhost:1313/python/algorithms/minimum-spanning-trees/prims-algorithm/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/python/oop/dynamic-method-selection/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/python/oop/objects/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/python/oop/generics/</loc>
     <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
@@ -59,10 +39,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/python/algorithms/minimum-spanning-trees/</loc>
-    <lastmod>2024-09-06T19:43:58+05:30</lastmod>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/python/oop/</loc>
     <lastmod>2024-09-06T19:43:58+05:30</lastmod>
     <priority>0.5</priority>
   </url><url>
