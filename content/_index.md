@@ -5,7 +5,7 @@ enableToc: false
 
 ## Introduction
 
-At BigData Junction, we are your ultimate destination for mastering the vast landscape of big data technologies. Whether you are a beginner looking to dive into the world of data or an experienced professional aiming to sharpen your skills, we have something for everyone.
+This Page is all about amit, we are your ultimate destination for mastering the vast landscape of big data technologies. Whether you are a beginner looking to dive into the world of data or an experienced professional aiming to sharpen your skills, we have something for everyone.
 
 Explore comprehensive resources, tutorials, and guides on:
 
