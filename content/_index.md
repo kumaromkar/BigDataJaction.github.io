@@ -5,7 +5,9 @@ enableToc: false
 
 ## Introduction
 
-At BigData Junction, we are your ultimate destination for mastering the vast landscape of big data technologies. Whether you are a beginner looking to dive into the world of data or an experienced professional aiming to sharpen your skills, we have something for everyone.
+This page is all about kumar om
+
+Pushing first site live
 
 Explore comprehensive resources, tutorials, and guides on:
 
