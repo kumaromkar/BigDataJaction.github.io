@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ default .Site.Language.Lang .Site.LanguageCode  }}" dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
+<html lang="{{ with .Site.Language.Lang }}{{ . }}{{ else }}en{{ end }}" dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
 <head>
+  <!-- 1. Adding viewport meta tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 3. Adding charset meta tag -->
+  <meta charset="UTF-8">
+
+  <!-- 4. Adding a title element -->
+  <title>{{ .Title | default .Site.Title }}</title>
+
   {{ partial "docs/html-head" . }}
   {{ partial "docs/inject/head" . }}
   {{ partial "quartz/head" . }}
 </head>
 {{ partial "quartz/search" . }}
-{{partial "quartz/header" . }}
+{{ partial "quartz/header" . }}
+
 <body dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <main class="flex">
@@ -16,15 +26,10 @@
       </div>
     </aside>
     <div class="book-page container">
-      {{/*  <header class="book-header">
-        {{ template "header" . }} <!-- Mobile layout header -->
-      </header>  */}}
-
       {{ partial "docs/inject/content-before" . }}
       {{ template "main" . }} <!-- Page Content -->
       {{ partial "docs/inject/content-after" . }}
-      
-      
+
       {{ template "comments" . }} <!-- Comments block -->
 
       <label for="menu-control" class="hidden book-menu-overlay"></label>
@@ -72,9 +77,8 @@
 {{ define "main" }}
   <article class="markdown">
     <h1 class="title">{{ partial "docs/title.html" . }}</h1>
-    {{partial "quartz/textprocessing" . }}
-    {{ partial "quartz/footer" .}}
-    {{/*  {{- .Content -}}  */}}
+    {{ partial "quartz/textprocessing" . }}
+    {{ partial "quartz/footer" . }}
   </article>
 {{ end }}
 
