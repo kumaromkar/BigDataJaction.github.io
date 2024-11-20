@@ -1,29 +1,45 @@
-{{/*  <meta charset="UTF-8">
+{{/* 
+  This is the HTML head partial for your Hugo site.
+  It includes meta tags, links to stylesheets, and scripts.
+*/}}
+
+{{- /* Meta tags for character set, viewport, and theme color */ -}}
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ default .Summary .Description }}">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark">  */}}
+<meta name="color-scheme" content="light dark">
 
+{{- /* Redirect if BookHref is set */ -}}
 {{- with .Page.Params.BookHref -}}
   <meta http-equiv="Refresh" content="0; url='{{ . }}'" />
 {{- end -}}
 
+{{- /* Open Graph tags for social media sharing */ -}}
 {{- template "_internal/opengraph.html" . -}}
 
 <title>{{ partial "docs/html-head-title" . }}</title>
 
+{{- /* Link to the manifest file */ -}}
 {{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
 <link rel="manifest" href="{{ $manifest.RelPermalink }}">
 <link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/x-icon">
 
+{{- /* Alternate language links for translations */ -}}
 {{- range .Translations }}
   <link rel="alternate" hreflang="{{ default .Language.Lang .Site.LanguageCode }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
 {{- end -}}
 
-<!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
-{{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ template "integrity" $styles }}>
+{{- /* Theme stylesheet, with fallback if SCSS file is missing */ -}}
+{{- $scssFile := resources.Get "book.scss" }}
+{{- if $scssFile }}
+  {{- $styles := $scssFile | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ template "integrity" $styles }}>
+{{- else }}
+  <link rel="stylesheet" href="{{ "path/to/default.css" | relURL }}">
+{{- end }}
 
+{{- /* Search functionality, if enabled */ -}}
 {{- if default true .Site.Params.BookSearch -}}
   {{- $searchJSFile := printf "%s.search.js" .Language.Lang }}
   {{- $searchJS := resources.Get "search.js" | resources.ExecuteAsTemplate $searchJSFile . | resources.Minify | resources.Fingerprint }}
@@ -31,14 +47,16 @@
   <script defer src="{{ $searchJS.RelPermalink }}" {{ template "integrity" $searchJS }}></script>
 {{ end -}}
 
+{{- /* Service Worker registration, if enabled */ -}}
 {{- if .Site.Params.BookServiceWorker -}}
   {{- $swJS := resources.Get "sw-register.js" | resources.ExecuteAsTemplate "sw.js" . | resources.Minify | resources.Fingerprint }}
   <script defer src="{{ $swJS.RelPermalink }}" {{ template "integrity" $swJS }}></script>
 {{ end -}}
 
-{{/*  {{- template "_internal/google_analytics.html" . -}}  */}}
+{{/* Google Analytics (commented out) */}}
+{{/* {{- template "_internal/google_analytics.html" . -}} */}}
 
-<!-- RSS -->
+{{- /* RSS feed link */ -}}
 {{- with .OutputFormats.Get "rss" -}}
   {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end -}}
@@ -48,6 +66,7 @@ Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 {{ "-->" | safeHTML }}
 
+{{- /* Integrity attribute for security */ -}}
 {{- define "integrity" -}}
   {{- if (urls.Parse .Permalink).Host -}}
     integrity="{{ .Data.Integrity }}" crossorigin="anonymous"
