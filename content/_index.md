@@ -5,9 +5,7 @@ enableToc: false
 
 ## Introduction
 
-Only 
-
-testing
+Only testing
 
 
 
