@@ -4,6 +4,4 @@ BookCollapseSection: true
 ---
 
 ## Git
-
- this page all about
-  kumar om
+ this page all about kumar om

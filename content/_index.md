@@ -5,9 +5,6 @@ enableToc: false
 
 ## Introduction
 
-This page is all about kumar om
-
-Pushing first site live
 
 Explore comprehensive resources, tutorials, and guides on:
 
