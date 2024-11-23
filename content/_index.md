@@ -5,9 +5,8 @@ enableToc: false
 
 ## Introduction
 
-Omkar
 
-Pushing first site live
+
 
 Explore comprehensive resources, tutorials, and guides on:
 
