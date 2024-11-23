@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=49602&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=49680&amp;path=livereload" data-no-instant defer></script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,7 +10,7 @@
   
   <title>Contributing</title>
 
-  <meta property="og:url" content="http://localhost:49602/contributing/">
+  <meta property="og:url" content="http://localhost:49680/contributing/">
   <meta property="og:site_name" content="📈 BigData Junction">
   <meta property="og:title" content="Contributing">
   <meta property="og:description" content="Thanks for your interest in contributing to my notes! There’s a lot of room for improvement, and I don’t have the time to fix everything. If there’s something that you’d like to add, please do so!
@@ -53,7 +53,7 @@ issue before editing anything or creating a pull request, so I can comment on it
 
 
 
-<link rel="shortcut icon" type="image/png"  href="http://localhost:49602//favicon.png" />
+<link rel="shortcut icon" type="image/png"  href="http://localhost:49680//favicon.png" />
 
 
 
@@ -83,10 +83,10 @@ issue before editing anything or creating a pull request, so I can comment on it
   
 
 
-<link href="http://localhost:49602/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
+<link href="http://localhost:49680/styles.e08ceb33360cec132feb69cfb982e2a4.min.css" rel="stylesheet" />
 
 
-<link href="http://localhost:49602/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+<link href="http://localhost:49680/quartz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
 
   
 
@@ -110,33 +110,33 @@ issue before editing anything or creating a pull request, so I can comment on it
 
 
 
-<script src="http://localhost:49602/quartz/js/darkmode.12fc3fe22e272cb746731aa64720d4ff.min.js"></script>
+<script src="http://localhost:49680/quartz/js/darkmode.31be47adf0e9560a33f5c94242ee0d67.min.js"></script>
 
 
 
-<script src="http://localhost:49602/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
+<script src="http://localhost:49680/quartz/js/util.c69e233dc1cc331a30b0f670e657b425.min.js"></script>
 
 
 
 <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
 <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
 
-<script src="http://localhost:49602/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+<script src="http://localhost:49680/quartz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:49602/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+<script defer src="http://localhost:49680/quartz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:49602/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+<script defer src="http://localhost:49680/quartz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
 
 
 
 
-<script defer src="http://localhost:49602/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+<script defer src="http://localhost:49680/quartz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
 
 
 
@@ -145,15 +145,15 @@ issue before editing anything or creating a pull request, so I can comment on it
   const SEARCH_ENABLED =  false 
   const LATEX_ENABLED =  true 
   const PRODUCTION =  false 
-  const BASE_URL = "http://localhost:49602/"
+  const BASE_URL = "http://localhost:49680/"
   const fetchData = Promise.all([
-        fetch("http:\/\/localhost:49602\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
+        fetch("http:\/\/localhost:49680\/indices\/linkIndex.4cf79553ca8debc59a551ad2d349fa28.min.json")
           .then(data => data.json())
           .then(data => ({
             index: data.index,
             links: data.links,
           })),
-        fetch("http:\/\/localhost:49602\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
+        fetch("http:\/\/localhost:49680\/indices\/contentIndex.aec3b7dd5bc8f6d692d4e19aead79b2e.min.json")
           .then(data => data.json()),
       ])
       .then(([{index, links}, content]) => ({
@@ -179,7 +179,7 @@ issue before editing anything or creating a pull request, so I can comment on it
 
     
     initPopover(
-      "http://localhost:49602",
+      "http://localhost:49680",
        true 
     )
     
@@ -195,7 +195,7 @@ issue before editing anything or creating a pull request, so I can comment on it
 
       const drawGlobal = true;
       drawGraph(
-          "http://localhost:49602",
+          "http://localhost:49680",
           drawGlobal,
           [{"/python":"#4388cc"}],
           drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
@@ -264,7 +264,7 @@ issue before editing anything or creating a pull request, so I can comment on it
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="http://localhost:49602/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+<script defer src="http://localhost:49680/quartz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
 
 
 
@@ -273,7 +273,7 @@ issue before editing anything or creating a pull request, so I can comment on it
     <label for="menu-control">
       <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
     </label>
-    <h1 id="page-title"><a href="http://localhost:49602/">📈 BigData Junction</a></h1>
+    <h1 id="page-title"><a href="http://localhost:49680/">📈 BigData Junction</a></h1>
     <div class="spacer"></div>
     <div id="search-icon" class="quartz-search">
       <p>Search</p>
@@ -533,7 +533,7 @@ A guide on how to use the various features (tabs, callouts, links&hellip;) can a
   }
 </style>
 
-<script src="http://localhost:49602/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
+<script src="http://localhost:49680/quartz/js/graph.cbd78cfa87df7d3e230d16fc24f06548.js"></script>
 
     </div>
 </div>
@@ -550,7 +550,7 @@ A guide on how to use the various features (tabs, callouts, links&hellip;) can a
         <p>Made with <a href="https://bigdatajunction.com/">BigData Junction</a>, © 2024 BigData Junction</p>
         <ul>
             
-            <li><a href="http://localhost:49602/">Home</a></li>
+            <li><a href="http://localhost:49680/">Home</a></li>
             <li><a href="https://github.com/64bitpandas/notes/issues">Feedback</a></li><li><a href="https://bencuan.me">Website</a></li></ul>
     </footer>
 </div>
